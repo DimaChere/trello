@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { BoardContext } from "../store/BoardContext";
+import { BoardContext } from "../app/store/BoardContext";
 
 export const useBoard = () => {
     const context = useContext(BoardContext);

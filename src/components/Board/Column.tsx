@@ -1,8 +1,9 @@
 import { useBoard } from "../../hooks/useBoard";
-import { ColumnType } from "../../lib/types";
+import { ColumnType } from "../../app/store/types";
 import { Card } from "./Card";
+import "./style.sass";
 
-export const Column = ({ column }: { column: ColumnType }) => {
+export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
     const { dispatch } = useBoard();
 
     const addCard = () => {

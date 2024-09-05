@@ -1,8 +1,8 @@
 import { useBoard } from "../../hooks/useBoard";
 import { Column } from "./Column";
-import "../../styles/Board/Columns.sass";
+import "./style.sass";
 
-export const Columns = () => {
+export const Columns: React.FC = () => {
     const { state } = useBoard();
 
     return (

@@ -1,9 +1,9 @@
-import { useReducer } from "react";
-import { State } from "../../lib/types";
-import { reducer } from "../../lib/reducer";
-import { BoardContext } from "../../store/BoardContext";
+import { PropsWithChildren, useReducer } from "react";
+import { State } from "../store/types";
+import { reducer } from "../store/reducer";
+import { BoardContext } from "../store/BoardContext";
 
-export const BoardProvider = ({ children }: { children: React.ReactNode }) => {
+export const BoardProvider: React.FC<PropsWithChildren> = ({ children }) => {
     const initialState: State = {
         columns: {
             todo: { id: "todo", title: "TODO", cards: [] },

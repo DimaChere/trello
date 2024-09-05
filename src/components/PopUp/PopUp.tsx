@@ -1,19 +1,19 @@
 import { useState } from "react";
-import "../../styles/PopUp/PopUp.sass";
+import "./style.sass";
 import { useBoard } from "../../hooks/useBoard";
 
-export const PopUp = () => {
+export const PopUp: React.FC = () => {
     const [userName, setUserName] = useState<string>("");
-    const [successRegister, setSuccessRegister] = useState<boolean>(false);
+    const [isSuccessRegister, setIsSuccessRegister] = useState<boolean>(false);
     const { dispatch } = useBoard();
 
-    const registerUser = () => {
+    const handleUserRegister = () => {
         dispatch({ type: "ADD_USER", userName });
-        setSuccessRegister(true);
+        setIsSuccessRegister(true);
         setUserName("");
     };
 
-    if (successRegister) {
+    if (isSuccessRegister) {
         return null;
     }
 
@@ -22,10 +22,7 @@ export const PopUp = () => {
             <div className="popup">
                 <label className="name">Пользователь:</label>
                 <input type="text" className="name-input" />
-                <button
-                    className="name-register"
-                    onClick={() => registerUser()}
-                >
+                <button className="name-register" onClick={handleUserRegister}>
                     Зарегестрировать пользователя
                 </button>
             </div>

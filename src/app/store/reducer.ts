@@ -1,18 +1,18 @@
-import { Action, State } from "./types";
+import { Action, ACTION_TYPES, State } from "./types";
 
 export const reducer = (state: State, action: Action): State => {
     switch (action.type) {
-        case "ADD_USER":
+        case ACTION_TYPES.ADD_USER:
             return {
                 ...state,
                 users: [...state.users, action.userName],
             };
-        case "REMOVE_USER":
+        case ACTION_TYPES.REMOVE_USER:
             return {
                 ...state,
                 users: state.users.filter((user) => user !== action.userName),
             };
-        case "ADD_CARD":
+        case ACTION_TYPES.ADD_CARD:
             return {
                 ...state,
                 columns: {
@@ -26,7 +26,7 @@ export const reducer = (state: State, action: Action): State => {
                     },
                 },
             };
-        case "REMOVE_CARD":
+        case ACTION_TYPES.REMOVE_CARD:
             return {
                 ...state,
                 columns: {
@@ -39,7 +39,7 @@ export const reducer = (state: State, action: Action): State => {
                     },
                 },
             };
-        case "EDIT_CARD":
+        case ACTION_TYPES.EDIT_CARD:
             return {
                 ...state,
                 columns: {
@@ -55,7 +55,7 @@ export const reducer = (state: State, action: Action): State => {
                     },
                 },
             };
-        case "MOVE_CARD":
+        case ACTION_TYPES.MOVE_CARD:
             const cardToMove = state.columns[action.fromColumnId].cards.find(
                 (card) => card.id === action.cardId
             );
@@ -80,7 +80,7 @@ export const reducer = (state: State, action: Action): State => {
                     },
                 },
             };
-        case "ADD_COMMENT":
+        case ACTION_TYPES.ADD_COMMENT:
             const updatedColumns = Object.keys(state.columns).reduce(
                 (acc, columnId) => {
                     const updatedCards = state.columns[columnId].cards.map(

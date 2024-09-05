@@ -1,7 +1,7 @@
 import { useBoard } from "../../hooks/useBoard";
-import { CardTypes } from "../../lib/types";
+import { CardTypes } from "../../app/store/types";
 
-export const Card = ({ card }: { card: CardTypes }) => {
+export const Card: React.FC<{ card: CardTypes }> = ({ card }) => {
     const { dispatch } = useBoard();
 
     const removeCard = () => {
