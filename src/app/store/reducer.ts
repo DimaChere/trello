@@ -5,36 +5,51 @@ export const reducer = (state: State, action: Action): State => {
         case ACTION_TYPES.ADD_USER:
             return {
                 ...state,
-                users: [...state.users, action.userName],
+                users: [...state.users, action.payload.userName],
             };
         case ACTION_TYPES.REMOVE_USER:
             return {
                 ...state,
-                users: state.users.filter((user) => user !== action.userName),
+                users: state.users.filter(
+                    (user) => user !== action.payload.userName
+                ),
             };
+
         case ACTION_TYPES.ADD_CARD:
+            const columns = [...state.columns];
+            let changingColumn = 0;
+
+            for (let i = 0; i < state.columns.length; i++) {
+                if (state.columns[i].id === action.payload.columnId) {
+                    changingColumn = i;
+                }
+            }
+
+            const newCards = columns[changingColumn].cards.concat(
+                action.payload.card
+            );
+
+            state.columns[changingColumn].cards = newCards;
+
+            columns[changingColumn] = {
+                ...columns[changingColumn],
+                cards: newCards,
+            };
             return {
                 ...state,
-                columns: {
-                    ...state.columns,
-                    [action.columnId]: {
-                        ...state.columns[action.columnId],
-                        cards: [
-                            ...state.columns[action.columnId].cards,
-                            action.card,
-                        ],
-                    },
-                },
+                columns: columns,
             };
         case ACTION_TYPES.REMOVE_CARD:
             return {
                 ...state,
                 columns: {
                     ...state.columns,
-                    [action.columnId]: {
-                        ...state.columns[action.columnId],
-                        cards: state.columns[action.columnId].cards.filter(
-                            (card) => card.id !== action.cardId
+                    [action.payload.columnId]: {
+                        ...state.columns[action.payload.columnId],
+                        cards: state.columns[
+                            action.payload.columnId
+                        ].cards.filter(
+                            (card) => card.id !== action.payload.cardId
                         ),
                     },
                 },
@@ -44,67 +59,59 @@ export const reducer = (state: State, action: Action): State => {
                 ...state,
                 columns: {
                     ...state.columns,
-                    [action.columnId]: {
-                        ...state.columns[action.columnId],
-                        cards: state.columns[action.columnId].cards.map(
+                    [action.payload.columnId]: {
+                        ...state.columns[action.payload.columnId],
+                        cards: state.columns[action.payload.columnId].cards.map(
                             (card) =>
-                                card.id === action.cardId
-                                    ? { ...card, ...action.updates }
+                                card.id === action.payload.cardId
+                                    ? { ...card, ...action.payload.updates }
                                     : card
                         ),
                     },
                 },
             };
         case ACTION_TYPES.MOVE_CARD:
-            const cardToMove = state.columns[action.fromColumnId].cards.find(
-                (card) => card.id === action.cardId
-            );
+            const cardToMove = state.columns[
+                action.payload.fromColumnId
+            ].cards.find((card) => card.id === action.payload.cardId);
             if (!cardToMove) return state;
 
             return {
                 ...state,
                 columns: {
                     ...state.columns,
-                    [action.fromColumnId]: {
-                        ...state.columns[action.fromColumnId],
-                        cards: state.columns[action.fromColumnId].cards.filter(
-                            (card) => card.id !== action.cardId
+                    [action.payload.fromColumnId]: {
+                        ...state.columns[action.payload.fromColumnId],
+                        cards: state.columns[
+                            action.payload.fromColumnId
+                        ].cards.filter(
+                            (card) => card.id !== action.payload.cardId
                         ),
                     },
-                    [action.toColumnId]: {
-                        ...state.columns[action.toColumnId],
+                    [action.payload.toColumnId]: {
+                        ...state.columns[action.payload.toColumnId],
                         cards: [
-                            ...state.columns[action.toColumnId].cards,
+                            ...state.columns[action.payload.toColumnId].cards,
                             cardToMove,
                         ],
                     },
                 },
             };
         case ACTION_TYPES.ADD_COMMENT:
-            const updatedColumns = Object.keys(state.columns).reduce(
-                (acc, columnId) => {
-                    const updatedCards = state.columns[columnId].cards.map(
-                        (card) =>
-                            card.id === action.cardId
-                                ? {
-                                      ...card,
-                                      comments: [
-                                          ...card.comments,
-                                          action.comment,
-                                      ],
-                                  }
-                                : card
-                    );
-                    return {
-                        ...acc,
-                        [columnId]: {
-                            ...state.columns[columnId],
-                            cards: updatedCards,
-                        },
-                    };
-                },
-                {}
-            );
+            const updatedColumns = [...state.columns];
+            for (let i = 0; i < updatedColumns.length; i++) {
+                if (
+                    updatedColumns[i].cards.some(
+                        (card) => card.id === action.payload.cardId
+                    )
+                ) {
+                    updatedColumns[i].cards.forEach((card) => {
+                        if (card.id === action.payload.cardId) {
+                            card.comments.push(action.payload.comment);
+                        }
+                    });
+                }
+            }
 
             return {
                 ...state,

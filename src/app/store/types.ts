@@ -1,8 +1,8 @@
-export type CardTypes = {
-    id: string;
+export type CardType = {
+    id: number;
     title: string;
     description: string;
-    column: string;
+    columnId: number;
     comments: Comment[];
 };
 
@@ -13,13 +13,7 @@ export type Comment = {
 };
 
 export type State = {
-    columns: {
-        [key: string]: {
-            id: string;
-            title: string;
-            cards: CardTypes[];
-        };
-    };
+    columns: ColumnType[];
     users: string[];
 };
 
@@ -34,28 +28,41 @@ export enum ACTION_TYPES {
 }
 
 export type Action =
-    | { type: ACTION_TYPES.ADD_USER; userName: string }
-    | { type: ACTION_TYPES.REMOVE_USER; userName: string }
-    | { type: ACTION_TYPES.ADD_CARD; columnId: string; card: CardTypes }
-    | { type: ACTION_TYPES.REMOVE_CARD; columnId: string; cardId: string }
+    | { type: ACTION_TYPES.ADD_USER; payload: { userName: string } }
+    | { type: ACTION_TYPES.REMOVE_USER; payload: { userName: string } }
+    | {
+          type: ACTION_TYPES.ADD_CARD;
+          payload: { columnId: number; card: CardType };
+      }
+    | {
+          type: ACTION_TYPES.REMOVE_CARD;
+          payload: { columnId: number; cardId: number };
+      }
     | {
           type: ACTION_TYPES.EDIT_CARD;
-          columnId: string;
-          cardId: string;
-          updates: Partial<CardTypes>;
+          payload: {
+              columnId: number;
+              cardId: number;
+              updates: Partial<CardType>;
+          };
       }
     | {
           type: ACTION_TYPES.MOVE_CARD;
-          fromColumnId: string;
-          toColumnId: string;
-          cardId: string;
+          payload: {
+              fromColumnId: number;
+              toColumnId: number;
+              cardId: number;
+          };
       }
-    | { type: ACTION_TYPES.ADD_COMMENT; cardId: string; comment: Comment };
+    | {
+          type: ACTION_TYPES.ADD_COMMENT;
+          payload: { cardId: number; comment: Comment };
+      };
 
 export type ColumnType = {
-    id: string;
+    id: number;
     title: string;
-    cards: CardTypes[];
+    cards: CardType[];
 };
 
 export type BoardContextType =

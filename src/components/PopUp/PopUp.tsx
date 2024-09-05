@@ -1,28 +1,32 @@
 import { useState } from "react";
 import "./style.sass";
 import { useBoard } from "../../hooks/useBoard";
+import { ACTION_TYPES } from "../../app/store/types";
 
 export const PopUp: React.FC = () => {
     const [userName, setUserName] = useState<string>("");
-    const [isSuccessRegister, setIsSuccessRegister] = useState<boolean>(false);
+    const [isRegisterSuccess, setIsRegisterSuccess] = useState<boolean>(false);
     const { dispatch } = useBoard();
 
     const handleUserRegister = () => {
-        dispatch({ type: "ADD_USER", userName });
-        setIsSuccessRegister(true);
+        dispatch({ type: ACTION_TYPES.ADD_USER, payload: { userName } });
+        setIsRegisterSuccess(true);
         setUserName("");
     };
 
-    if (isSuccessRegister) {
+    if (isRegisterSuccess) {
         return null;
     }
 
     return (
-        <div className="popup-wrapper">
-            <div className="popup">
-                <label className="name">Пользователь:</label>
-                <input type="text" className="name-input" />
-                <button className="name-register" onClick={handleUserRegister}>
+        <div className="PopUp-Wrapper">
+            <div className="PopUp">
+                <label className="PopUp-Heading">Пользователь:</label>
+                <input type="text" className="PopUp-UserName_Input" />
+                <button
+                    className="PopUp-UserName_RegisterBtn"
+                    onClick={handleUserRegister}
+                >
                     Зарегестрировать пользователя
                 </button>
             </div>

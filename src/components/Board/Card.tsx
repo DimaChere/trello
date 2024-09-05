@@ -1,19 +1,18 @@
 import { useBoard } from "../../hooks/useBoard";
-import { CardTypes } from "../../app/store/types";
+import { ACTION_TYPES, CardType } from "../../app/store/types";
 
-export const Card: React.FC<{ card: CardTypes }> = ({ card }) => {
+export const Card: React.FC<{ card: CardType }> = ({ card }) => {
     const { dispatch } = useBoard();
 
     const removeCard = () => {
         dispatch({
-            type: "REMOVE_CARD",
-            columnId: card.column,
-            cardId: card.id,
+            type: ACTION_TYPES.REMOVE_CARD,
+            payload: { columnId: card.columnId, cardId: card.id },
         });
     };
 
     return (
-        <div className="card">
+        <div className="Card">
             <h3>{card.title}</h3>
             <p>{card.description}</p>
             <button onClick={removeCard}>Delete</button>

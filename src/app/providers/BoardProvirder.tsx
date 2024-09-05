@@ -5,12 +5,12 @@ import { BoardContext } from "../store/BoardContext";
 
 export const BoardProvider: React.FC<PropsWithChildren> = ({ children }) => {
     const initialState: State = {
-        columns: {
-            todo: { id: "todo", title: "TODO", cards: [] },
-            inProgress: { id: "inProgress", title: "In Progress", cards: [] },
-            testing: { id: "testing", title: "Testing", cards: [] },
-            done: { id: "done", title: "Done", cards: [] },
-        },
+        columns: [
+            { id: 1, title: "TODO", cards: [] },
+            { id: 2, title: "In Progress", cards: [] },
+            { id: 3, title: "Testing", cards: [] },
+            { id: 4, title: "Done", cards: [] },
+        ],
         users: [],
     };
 
