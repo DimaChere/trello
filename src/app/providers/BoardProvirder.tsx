@@ -11,7 +11,7 @@ export const BoardProvider: React.FC<PropsWithChildren> = ({ children }) => {
             { id: 3, title: "Testing", cards: [] },
             { id: 4, title: "Done", cards: [] },
         ],
-        users: [],
+        user: "",
     };
 
     const [state, dispatch] = useReducer(reducer, initialState);

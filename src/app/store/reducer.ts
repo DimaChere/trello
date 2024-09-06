@@ -1,58 +1,59 @@
 import { Action, ACTION_TYPES, State } from "./types";
 
 export const reducer = (state: State, action: Action): State => {
+    let updatedColumns;
+
     switch (action.type) {
         case ACTION_TYPES.ADD_USER:
             return {
                 ...state,
-                users: [...state.users, action.payload.userName],
+                user: action.payload.userName,
             };
         case ACTION_TYPES.REMOVE_USER:
             return {
                 ...state,
-                users: state.users.filter(
-                    (user) => user !== action.payload.userName
-                ),
+                user: "",
             };
 
         case ACTION_TYPES.ADD_CARD:
-            const columns = [...state.columns];
-            let changingColumn = 0;
+            const { columnId, card } = action.payload;
 
-            for (let i = 0; i < state.columns.length; i++) {
-                if (state.columns[i].id === action.payload.columnId) {
-                    changingColumn = i;
+            updatedColumns = state.columns.map((column) => {
+                if (column.id === columnId) {
+                    return {
+                        ...column,
+                        cards: [...column.cards, card],
+                    };
+                } else {
+                    return column;
                 }
-            }
+            });
 
-            const newCards = columns[changingColumn].cards.concat(
-                action.payload.card
-            );
-
-            state.columns[changingColumn].cards = newCards;
-
-            columns[changingColumn] = {
-                ...columns[changingColumn],
-                cards: newCards,
-            };
             return {
                 ...state,
-                columns: columns,
+                columns: updatedColumns,
             };
+
         case ACTION_TYPES.REMOVE_CARD:
+            const { columnId: removeColumnId, cardId: removeCardId } =
+                action.payload;
+
+            const updatedColumnsAfterRemove = state.columns.map((column) => {
+                if (column.id === removeColumnId) {
+                    return {
+                        ...column,
+                        cards: column.cards.filter(
+                            (card) => card.id !== removeCardId
+                        ),
+                    };
+                } else {
+                    return column;
+                }
+            });
+
             return {
                 ...state,
-                columns: {
-                    ...state.columns,
-                    [action.payload.columnId]: {
-                        ...state.columns[action.payload.columnId],
-                        cards: state.columns[
-                            action.payload.columnId
-                        ].cards.filter(
-                            (card) => card.id !== action.payload.cardId
-                        ),
-                    },
-                },
+                columns: updatedColumnsAfterRemove,
             };
         case ACTION_TYPES.EDIT_CARD:
             return {
@@ -70,35 +71,8 @@ export const reducer = (state: State, action: Action): State => {
                     },
                 },
             };
-        case ACTION_TYPES.MOVE_CARD:
-            const cardToMove = state.columns[
-                action.payload.fromColumnId
-            ].cards.find((card) => card.id === action.payload.cardId);
-            if (!cardToMove) return state;
-
-            return {
-                ...state,
-                columns: {
-                    ...state.columns,
-                    [action.payload.fromColumnId]: {
-                        ...state.columns[action.payload.fromColumnId],
-                        cards: state.columns[
-                            action.payload.fromColumnId
-                        ].cards.filter(
-                            (card) => card.id !== action.payload.cardId
-                        ),
-                    },
-                    [action.payload.toColumnId]: {
-                        ...state.columns[action.payload.toColumnId],
-                        cards: [
-                            ...state.columns[action.payload.toColumnId].cards,
-                            cardToMove,
-                        ],
-                    },
-                },
-            };
         case ACTION_TYPES.ADD_COMMENT:
-            const updatedColumns = [...state.columns];
+            updatedColumns = [...state.columns];
             for (let i = 0; i < updatedColumns.length; i++) {
                 if (
                     updatedColumns[i].cards.some(

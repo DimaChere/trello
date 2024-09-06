@@ -1,20 +1,6 @@
-export type CardType = {
-    id: number;
-    title: string;
-    description: string;
-    columnId: number;
-    comments: Comment[];
-};
-
-export type Comment = {
-    id: string;
-    author: string;
-    text: string;
-};
-
 export type State = {
     columns: ColumnType[];
-    users: string[];
+    user: string;
 };
 
 export enum ACTION_TYPES {
@@ -56,13 +42,27 @@ export type Action =
       }
     | {
           type: ACTION_TYPES.ADD_COMMENT;
-          payload: { cardId: number; comment: Comment };
+          payload: { cardId: number; comment: CommentType };
       };
 
 export type ColumnType = {
     id: number;
     title: string;
     cards: CardType[];
+};
+
+export type CardType = {
+    id: number;
+    title: string;
+    description: string;
+    columnId: number;
+    comments: CommentType[];
+};
+
+export type CommentType = {
+    id: string;
+    author: string;
+    text: string;
 };
 
 export type BoardContextType =
