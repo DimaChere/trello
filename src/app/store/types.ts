@@ -1,6 +1,6 @@
 export type State = {
     columns: ColumnType[];
-    user: string;
+    user: string | null;
 };
 
 export enum ACTION_TYPES {
@@ -22,13 +22,13 @@ export type Action =
       }
     | {
           type: ACTION_TYPES.REMOVE_CARD;
-          payload: { columnId: number; cardId: number };
+          payload: { columnId: number; cardId: string };
       }
     | {
           type: ACTION_TYPES.EDIT_CARD;
           payload: {
               columnId: number;
-              cardId: number;
+              cardId: string;
               updates: Partial<CardType>;
           };
       }
@@ -37,12 +37,12 @@ export type Action =
           payload: {
               fromColumnId: number;
               toColumnId: number;
-              cardId: number;
+              cardId: string;
           };
       }
     | {
           type: ACTION_TYPES.ADD_COMMENT;
-          payload: { cardId: number; comment: CommentType };
+          payload: { cardId: string; comment: CommentType };
       };
 
 export type ColumnType = {
@@ -52,9 +52,9 @@ export type ColumnType = {
 };
 
 export type CardType = {
-    id: number;
+    id: string;
     title: string;
-    description: string;
+    description: string | null;
     columnId: number;
     comments: CommentType[];
 };

@@ -7,7 +7,7 @@ export const Columns: React.FC = () => {
     const { state } = useBoard();
 
     return (
-        <div className="Columns-Wrapper">
+        <div className="columns-wrapper">
             {state.columns.map((column: ColumnType) => {
                 return <Column key={column.id} column={column} />;
             })}

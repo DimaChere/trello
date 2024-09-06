@@ -5,7 +5,7 @@ import { BoardProvider } from "./app/providers/BoardProvirder";
 
 const App: React.FC = () => {
     return (
-        <main className="App">
+        <main className="app">
             <BoardProvider>
                 <PopUp />
                 <Columns />

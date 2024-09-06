@@ -1,8 +1,6 @@
-import { Action, ACTION_TYPES, State } from "./types";
+import { Action, ACTION_TYPES, CardType, ColumnType, State } from "./types";
 
 export const reducer = (state: State, action: Action): State => {
-    let updatedColumns;
-
     switch (action.type) {
         case ACTION_TYPES.ADD_USER:
             return {
@@ -12,85 +10,90 @@ export const reducer = (state: State, action: Action): State => {
         case ACTION_TYPES.REMOVE_USER:
             return {
                 ...state,
-                user: "",
+                user: null,
             };
 
         case ACTION_TYPES.ADD_CARD:
-            const { columnId, card } = action.payload;
-
-            updatedColumns = state.columns.map((column) => {
-                if (column.id === columnId) {
-                    return {
-                        ...column,
-                        cards: [...column.cards, card],
-                    };
-                } else {
-                    return column;
-                }
-            });
+            const updatedColumnsAfterAddCard = state.columns.map((column) =>
+                column.id === action.payload.columnId
+                    ? {
+                          ...column,
+                          cards: [...column.cards, action.payload.card],
+                      }
+                    : column
+            );
 
             return {
                 ...state,
-                columns: updatedColumns,
+                columns: updatedColumnsAfterAddCard,
             };
 
         case ACTION_TYPES.REMOVE_CARD:
-            const { columnId: removeColumnId, cardId: removeCardId } =
-                action.payload;
-
-            const updatedColumnsAfterRemove = state.columns.map((column) => {
-                if (column.id === removeColumnId) {
-                    return {
-                        ...column,
-                        cards: column.cards.filter(
-                            (card) => card.id !== removeCardId
-                        ),
-                    };
-                } else {
-                    return column;
-                }
-            });
+            const updatedColumnsAfterRemoveCard = state.columns.map((column) =>
+                column.id === action.payload.columnId
+                    ? {
+                          ...column,
+                          cards: column.cards.filter(
+                              (card) => card.id !== action.payload.cardId
+                          ),
+                      }
+                    : column
+            );
 
             return {
                 ...state,
-                columns: updatedColumnsAfterRemove,
+                columns: updatedColumnsAfterRemoveCard,
             };
         case ACTION_TYPES.EDIT_CARD:
-            return {
-                ...state,
-                columns: {
-                    ...state.columns,
-                    [action.payload.columnId]: {
-                        ...state.columns[action.payload.columnId],
-                        cards: state.columns[action.payload.columnId].cards.map(
-                            (card) =>
-                                card.id === action.payload.cardId
-                                    ? { ...card, ...action.payload.updates }
-                                    : card
-                        ),
-                    },
-                },
-            };
-        case ACTION_TYPES.ADD_COMMENT:
-            updatedColumns = [...state.columns];
-            for (let i = 0; i < updatedColumns.length; i++) {
-                if (
-                    updatedColumns[i].cards.some(
-                        (card) => card.id === action.payload.cardId
-                    )
-                ) {
-                    updatedColumns[i].cards.forEach((card) => {
-                        if (card.id === action.payload.cardId) {
-                            card.comments.push(action.payload.comment);
-                        }
-                    });
-                }
-            }
+            const updatedCards = (cards: CardType[]) =>
+                cards.map((card) =>
+                    card.id === action.payload.cardId
+                        ? { ...card, ...action.payload.updates }
+                        : card
+                );
+
+            const updatedColumnsAfterEditCard = state.columns.map(
+                (column: ColumnType) =>
+                    column.id === action.payload.columnId
+                        ? { ...column, cards: updatedCards(column.cards) }
+                        : column
+            );
 
             return {
                 ...state,
-                columns: updatedColumns,
+                columns: updatedColumnsAfterEditCard,
             };
+
+        case ACTION_TYPES.ADD_COMMENT:
+            const updatedCardsWithComments = (cards: CardType[]) =>
+                cards.map((card) =>
+                    card.id === action.payload.cardId
+                        ? {
+                              ...card,
+                              comments: [
+                                  ...card.comments,
+                                  action.payload.comment,
+                              ],
+                          }
+                        : card
+                );
+            const updatedColumnsAfterAddingComment = state.columns.map(
+                (column: ColumnType) =>
+                    column.cards.some(
+                        (card) => card.id === action.payload.cardId
+                    )
+                        ? {
+                              ...column,
+                              cards: updatedCardsWithComments(column.cards),
+                          }
+                        : column
+            );
+
+            return {
+                ...state,
+                columns: updatedColumnsAfterAddingComment,
+            };
+
         default:
             return state;
     }

@@ -19,14 +19,11 @@ export const PopUp: React.FC = () => {
     }
 
     return (
-        <div className="PopUp-Wrapper">
-            <div className="PopUp">
-                <label className="PopUp-Heading">Пользователь:</label>
-                <input type="text" className="PopUp-UserName_Input" />
-                <button
-                    className="PopUp-UserName_RegisterBtn"
-                    onClick={handleUserRegister}
-                >
+        <div className="pop-up-background">
+            <div className="pop-up">
+                <label className="pop-up__title">Пользователь:</label>
+                <input type="text" className="pop-up__input" />
+                <button className="pop-up__button" onClick={handleUserRegister}>
                     Зарегестрировать пользователя
                 </button>
             </div>
