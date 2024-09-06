@@ -1,17 +1,17 @@
 import "./App.sass";
 import { Columns } from "./components/Board/Columns";
 import { PopUp } from "./components/PopUp/PopUp";
-import { BoardProvider } from "./components/Provider/BoardProvirder";
+import { BoardProvider } from "./app/providers/BoardProvirder";
 
-function App() {
+const App: React.FC = () => {
     return (
-        <main className="App">
+        <main className="app">
             <BoardProvider>
                 <PopUp />
                 <Columns />
             </BoardProvider>
         </main>
     );
-}
+};
 
 export default App;

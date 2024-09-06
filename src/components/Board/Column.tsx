@@ -1,29 +1,35 @@
 import { useBoard } from "../../hooks/useBoard";
-import { ColumnType } from "../../lib/types";
+import { ACTION_TYPES, CardType, ColumnType } from "../../app/store/types";
 import { Card } from "./Card";
+import "./style.sass";
+import { v4 as uuidv4 } from "uuid";
 
-export const Column = ({ column }: { column: ColumnType }) => {
+export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
     const { dispatch } = useBoard();
 
-    const addCard = () => {
-        const newCard = {
-            id: new Date().toISOString(),
+    const handleAddCard = () => {
+        const newCard: CardType = {
+            id: uuidv4(),
             title: "New Card",
-            description: "",
-            column: column.id,
+            description: null,
+            columnId: column.id,
             comments: [],
         };
-        dispatch({ type: "ADD_CARD", columnId: column.id, card: newCard });
+
+        dispatch({
+            type: ACTION_TYPES.ADD_CARD,
+            payload: { columnId: column.id, card: newCard },
+        });
     };
 
     return (
         <div>
             <hgroup>
-                <h2 className="column-header-text">{column.title}</h2>
+                <h2 className="column-header__title">{column.title}</h2>
             </hgroup>
 
             <div className="column">
-                <button onClick={addCard}>Add Card</button>
+                <button onClick={handleAddCard}>Add Card</button>
                 {column.cards.map((card) => (
                     <Card key={card.id} card={card} />
                 ))}
