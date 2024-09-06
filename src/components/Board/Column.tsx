@@ -2,14 +2,14 @@ import { useBoard } from "../../hooks/useBoard";
 import { ACTION_TYPES, CardType, ColumnType } from "../../app/store/types";
 import { Card } from "./Card";
 import "./style.sass";
-import { uuid } from "uuidv4";
+import { v4 as uuidv4 } from "uuid";
 
 export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
     const { dispatch } = useBoard();
 
     const handleAddCard = () => {
         const newCard: CardType = {
-            id: uuid(),
+            id: uuidv4(),
             title: "New Card",
             description: null,
             columnId: column.id,
