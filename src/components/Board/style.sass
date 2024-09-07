@@ -7,12 +7,71 @@
     width: 100%
     height: 100%
 
-.column
-    border-radius: 5px
-    background-color: #F6F6F6
-    min-height: 60vh
-
 .column-header__title
     font-size: 16px
     font-weight: 400
     color: #757575
+ 
+.column
+    padding: 5px 9px
+    border-radius: 5px
+    background-color: #F6F6F6
+    min-height: 60vh
+    &__controls
+        display: flex
+        justify-content: end
+    &__cards
+        display: flex
+        flex-direction: column
+        gap: 10px
+
+.button
+    display: block
+    border: 0
+    background-color: transparent
+    padding-inline: 0
+    padding-block: 0
+    &:hover
+        cursor: pointer
+
+.card
+    display: flex
+    flex-direction: column
+    gap: 22px
+    padding: 11px 11px 4px
+    border-radius: 10px
+    word-break: break-all 
+    background-color: white
+    &:hover
+        cursor: pointer
+    &__name
+        display: flex
+        justify-content: space-between
+    &__comments-description
+        display: flex
+        align-items: center
+        gap: 3px
+    &__changeTitle:hover 
+        border-radius: 3px
+        background-color: #dbdbdb
+        
+.card-pop-up-background
+    position: absolute
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 100%
+    height: 100%
+    background-color: #80808069
+
+.card-pop-up
+    position: absolute
+    display: flex
+    flex-direction: column
+    gap: 30px
+    padding: 30px 40px
+    min-width: 320px
+    border-radius: 30px
+    background-color: white
+    &__header
+        border-bottom: 1px solid #999999

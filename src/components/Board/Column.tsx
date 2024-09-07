@@ -29,10 +29,19 @@ export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
             </hgroup>
 
             <div className="column">
-                <button onClick={handleAddCard}>Add Card</button>
-                {column.cards.map((card) => (
-                    <Card key={card.id} card={card} />
-                ))}
+                <div className="column__controls">
+                    <button
+                        onClick={handleAddCard}
+                        className="column__add-card button"
+                    >
+                        <img src="/Add.svg" alt="Add card" />
+                    </button>
+                </div>
+                <div className="column__cards">
+                    {column.cards.map((card) => (
+                        <Card key={card.id} card={card} />
+                    ))}
+                </div>
             </div>
         </div>
     );
