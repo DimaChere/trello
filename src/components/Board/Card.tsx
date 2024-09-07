@@ -8,7 +8,8 @@ export const Card: React.FC<{ card: CardType }> = ({ card }) => {
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [newTitle, setNewTitle] = useState(card.title);
 
-    const handleOpenNameEditor = () => {
+    const handleOpenNameEditor = (e: React.MouseEvent) => {
+        e.stopPropagation();
         setIsNameChanging((e) => !e);
     };
 
