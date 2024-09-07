@@ -65,13 +65,18 @@
     background-color: #80808069
 
 .card-pop-up
-    position: absolute
+    position: relative
     display: flex
     flex-direction: column
     gap: 30px
     padding: 30px 40px
-    min-width: 320px
+    min-width: 30vw
+    border: 1px solid #999
     border-radius: 30px
     background-color: white
     &__header
         border-bottom: 1px solid #999999
+    &__close
+        position: absolute
+        top: 10px
+        left: 10px

@@ -1,5 +1,5 @@
 import { ACTION_TYPES, CardType } from "../../app/store/types";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useBoard } from "../../hooks/useBoard";
 
 export const Card: React.FC<{ card: CardType }> = ({ card }) => {
@@ -41,6 +41,38 @@ export const Card: React.FC<{ card: CardType }> = ({ card }) => {
             },
         });
     };
+
+    const handleOutsideClick = useCallback(
+        (e: MouseEvent) => {
+            if (
+                inputRef.current &&
+                !inputRef.current.contains(e.target as Node)
+            ) {
+                dispatch({
+                    type: ACTION_TYPES.EDIT_CARD,
+                    payload: {
+                        columnId: card.columnId,
+                        cardId: card.id,
+                        updates: { title: newTitle },
+                    },
+                });
+                setIsNameChanging(false);
+            }
+        },
+        [card.columnId, card.id, dispatch, newTitle]
+    );
+
+    useEffect(() => {
+        if (isNameChanging) {
+            document.addEventListener("mousedown", handleOutsideClick);
+        } else {
+            document.removeEventListener("mousedown", handleOutsideClick);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleOutsideClick);
+        };
+    }, [isNameChanging, newTitle, handleOutsideClick]);
 
     return (
         <div className="card" onClick={handleCardPopUpOpen}>
