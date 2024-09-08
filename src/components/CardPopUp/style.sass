@@ -4,7 +4,7 @@
     flex-direction: column
     gap: 30px
     padding: 30px 40px
-    min-width: 30vw
+    width: 30vw
     border: 1px solid #999
     border-radius: 30px
     background-color: white
@@ -23,14 +23,6 @@
         position: absolute
         top: 10px
         left: 10px
-    &__send-comment
-        display: flex
-        padding: 5px
-        border: 1px solid #999999
-        border-radius: 10px
-    &__comment-input
-        flex: 1
-        height: 50px
 
 .cart-description
     display: flex
@@ -61,4 +53,51 @@
         &:hover
             background-color: #91dd87
             
+.card-comments
+    &__send-comment
+        display: flex
+        gap: 10px
+        align-items: flex-end
+        padding: 5px
+        border: 1px solid #999999
+        border-radius: 10px
+    &__textarea
+        flex: 1
+        resize: none
+        overflow-y: hidden
+        min-height: 50px
+        width: 100%
+        border: 0
+        font-family: inherit
         
+    &__send-button
+        padding: 5px
+        border-radius: 3px
+        background-color: #ccfff8
+        &:hover
+            cursor: pointer
+            background-color: #b1fff5
+    &__comments-block
+        display: flex
+        flex-direction: column
+        gap: 10px
+
+.comment
+    display: flex
+    justify-content: space-between
+    align-items: center
+    font-size: 16px
+    white-space: pre-wrap
+    &__user-name
+        font-weight: 600
+    &__controls
+        display: flex
+    &__textarea
+        flex: 1
+        resize: none
+        overflow-y: hidden
+        font: inherit
+    &__text
+        display: flex
+        flex: 1
+        flex-direction: column

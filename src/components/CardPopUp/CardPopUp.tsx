@@ -5,7 +5,7 @@ import {
     CurrentPopupCardType,
 } from "../../app/store/types";
 import { useBoard } from "../../hooks/useBoard";
-import { CardPopUpComments } from "./CardPopUpComents";
+import { CardPopUpComments } from "./CardPopUpComments";
 import { CardPopUpDescription } from "./CardPopUpDescription";
 import { CardPopUpHeader } from "./CardPopUpHeader";
 import "./style.sass";

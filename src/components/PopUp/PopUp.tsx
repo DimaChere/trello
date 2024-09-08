@@ -22,7 +22,12 @@ export const PopUp: React.FC = () => {
         <div className="pop-up-background">
             <div className="pop-up">
                 <label className="pop-up__title">Пользователь:</label>
-                <input type="text" className="pop-up__input" />
+                <input
+                    type="text"
+                    className="pop-up__input"
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                />
                 <button className="pop-up__button" onClick={handleUserRegister}>
                     Зарегестрировать пользователя
                 </button>

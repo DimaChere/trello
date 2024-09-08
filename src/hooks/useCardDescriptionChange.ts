@@ -17,12 +17,12 @@ export const useCardDescriptionChange = (card: CardType) => {
     useEffect(() => {
         if (isDescriptionChanging && inputRef.current) {
             inputRef.current.focus();
-            handleTextareaResize();
+            textareaResize();
         }
     }, [isDescriptionChanging]);
 
     useEffect(() => {
-        handleTextareaResize();
+        textareaResize();
     }, [newDescription]);
 
     const handleDescriptionSubmit = () => {
@@ -49,7 +49,7 @@ export const useCardDescriptionChange = (card: CardType) => {
         setIsDescriptionChanging(false);
     };
 
-    const handleTextareaResize = () => {
+    const textareaResize = () => {
         if (inputRef.current) {
             inputRef.current.style.height = "auto";
             inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
