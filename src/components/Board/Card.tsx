@@ -39,12 +39,14 @@ export const Card: React.FC<{ card: CardType }> = ({ card }) => {
                 ) : (
                     <>
                         <h3>{card.title}</h3>
-                        <button className=" button">
+                        <button
+                            className=" button"
+                            onClick={handleOpenNameEditor}
+                        >
                             <img
                                 src="/Edit.svg"
                                 alt="Изменить имя"
                                 className="card__changeTitle"
-                                onClick={handleOpenNameEditor}
                             />
                         </button>
                     </>

@@ -42,19 +42,11 @@ export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
             )}
 
             <div className="card-pop-up__edit-card">
-                <button className="button">
-                    <img
-                        src="/Edit.svg"
-                        alt="Изменить название"
-                        onClick={handleOpenNameEditor}
-                    />
+                <button className="button" onClick={handleOpenNameEditor}>
+                    <img src="/Edit.svg" alt="Изменить название" />
                 </button>
-                <button className="button">
-                    <img
-                        src="/Delete.svg"
-                        alt="Удалить карточку"
-                        onClick={handlePopUpDelete}
-                    />
+                <button className="button" onClick={handlePopUpDelete}>
+                    <img src="/Delete.svg" alt="Удалить карточку" />
                 </button>
             </div>
         </div>
