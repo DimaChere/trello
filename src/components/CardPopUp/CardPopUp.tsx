@@ -30,7 +30,6 @@ export const CardPopUp: React.FC<{ cardInfo: CurrentPopupCardType }> = ({
     };
 
     return (
-        // <div className="card-pop-up-background">
         <div className="card-pop-up">
             <button
                 className="card-pop-up__close button"
@@ -46,6 +45,5 @@ export const CardPopUp: React.FC<{ cardInfo: CurrentPopupCardType }> = ({
                 </>
             )}
         </div>
-        // </div>
     );
 };

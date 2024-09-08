@@ -10,7 +10,7 @@ export const useCardDescriptionChange = (card: CardType) => {
         card.description || ""
     );
 
-    const handleOpenDescriptionEditor = (e: React.MouseEvent) => {
+    const handleOpenDescriptionEditor = () => {
         setIsDescriptionChanging((prev) => !prev);
     };
 
