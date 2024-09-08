@@ -3,7 +3,7 @@ import { useBoard } from "../../hooks/useBoard";
 import { useCardNameChange } from "../../hooks/useCardNameChange";
 
 export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
-    const { dispatch } = useBoard();
+    const { state, dispatch } = useBoard();
     const {
         isNameChanging,
         newTitle,
@@ -36,9 +36,18 @@ export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
                     ></input>
                 </>
             ) : (
-                <>
+                <div>
                     <p className="card-pop-up__title">{card.title}</p>
-                </>
+                    <div className="card-pop-up__breadcrumbs">
+                        {state.user}&nbsp;/&nbsp;
+                        {
+                            state.columns.find((c) => c.id === card.columnId)
+                                ?.title
+                        }
+                        &nbsp;/&nbsp;
+                        {card.title}
+                    </div>
+                </div>
             )}
 
             <div className="card-pop-up__edit-card">
