@@ -1,7 +1,12 @@
 export type State = {
     columns: ColumnType[];
     user: string | null;
-    currentPopupCard: CardType | null;
+    currentPopupCard: CurrentPopupCardType | null;
+};
+
+export type CurrentPopupCardType = {
+    id: string;
+    columnId: number;
 };
 
 export enum ACTION_TYPES {

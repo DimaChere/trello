@@ -1,6 +1,6 @@
 import { ColumnType } from "../../app/store/types";
 import { useBoard } from "../../hooks/useBoard";
-import { CardPopUp } from "./CardPopUp";
+import { CardPopUp } from "../CardPopUp/CardPopUp";
 import { Column } from "./Column";
 import "./style.sass";
 
@@ -15,7 +15,7 @@ export const Columns: React.FC = () => {
                 })}
             </div>
             {state.currentPopupCard && (
-                <CardPopUp card={state.currentPopupCard} />
+                <CardPopUp cardInfo={state.currentPopupCard} />
             )}
         </>
     );
