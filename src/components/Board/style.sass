@@ -2,7 +2,7 @@
     display: grid
     grid-template-columns: 1fr 1fr 1fr 1fr
     gap: 10px
-    margin: 0 auto
+    margin: 20px auto
     max-width: 1024px
     width: 100%
     height: 100%
@@ -35,14 +35,17 @@
     background-color: white
     &:hover
         cursor: pointer
-    &__name
+    &__header
         display: flex
         justify-content: space-between
+    &__title
+        font-size: 20px
+        font-weight: 600
     &__comments-description
         display: flex
         align-items: center
         gap: 3px
-    &__changeTitle:hover 
+    &__change-title:hover 
         border-radius: 3px
         background-color: #dbdbdb
         
