@@ -1,5 +1,5 @@
 import { CardType, CommentType } from "../../app/store/types";
-import { useCardCommentControls } from "../../hooks/useCardCommentControls";
+import { useCardCommentChange } from "../../hooks/useCardCommentChange";
 
 export const CardPopUpComment: React.FC<{
     comment: CommentType;
@@ -13,7 +13,8 @@ export const CardPopUpComment: React.FC<{
         handleOpenCommentEditor,
         handleCommentSubmit,
         handleRemoveComment,
-    } = useCardCommentControls(comment, card);
+    } = useCardCommentChange(comment, card);
+
     return (
         <div className="comment">
             <div className="comment__text">
@@ -29,7 +30,7 @@ export const CardPopUpComment: React.FC<{
                             onChange={(e) => setNewComment(e.target.value)}
                         ></textarea>
                         <button
-                            className="button apply-changes-button"
+                            className="button button--apply-changes"
                             onClick={handleCommentSubmit}
                         >
                             <img src="/Done.svg" alt="Сохранить" />
@@ -39,6 +40,7 @@ export const CardPopUpComment: React.FC<{
                     <p className="comment__comment">{comment.text}</p>
                 )}
             </div>
+
             {!isCommentChanging && (
                 <div className="comment__controls">
                     <button

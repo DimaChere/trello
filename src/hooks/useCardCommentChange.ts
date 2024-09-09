@@ -2,10 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { ACTION_TYPES, CardType, CommentType } from "../app/store/types";
 import { useBoard } from "./useBoard";
 
-export const useCardCommentControls = (
-    comment: CommentType,
-    card: CardType
-) => {
+export const useCardCommentChange = (comment: CommentType, card: CardType) => {
     const { dispatch } = useBoard();
     const [isCommentChanging, setIsCommentChanging] = useState(false);
     const [newComment, setNewComment] = useState(comment.text);
@@ -14,12 +11,13 @@ export const useCardCommentControls = (
     const textareaResize = () => {
         if (inputRef.current) {
             inputRef.current.style.height = "auto";
-            inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
+            inputRef.current.style.minHeight = `${inputRef.current.scrollHeight}px`;
         }
     };
 
     const handleOpenCommentEditor = (e: React.MouseEvent) => {
         setIsCommentChanging((prev) => !prev);
+        setNewComment((c) => c.trim());
     };
 
     useEffect(() => {
@@ -38,7 +36,7 @@ export const useCardCommentControls = (
             ...comment,
             text: newComment.trim(),
         };
-        console.log(changedComment.text);
+
         const newComments = [...card.comments];
         newComments[newComments.indexOf(comment)] = changedComment;
 
@@ -66,6 +64,7 @@ export const useCardCommentControls = (
                 updates: { comments: newComments },
             },
         });
+        setIsCommentChanging(false);
     };
 
     return {

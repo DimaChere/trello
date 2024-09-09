@@ -6,7 +6,11 @@ import { ACTION_TYPES } from "../../app/store/types";
 export const PopUp: React.FC = () => {
     const [userName, setUserName] = useState<string>("");
     const [isRegisterSuccess, setIsRegisterSuccess] = useState<boolean>(false);
-    const { dispatch } = useBoard();
+    const { state, dispatch } = useBoard();
+
+    if (state.user) {
+        return null;
+    }
 
     const handleUserRegister = () => {
         dispatch({ type: ACTION_TYPES.ADD_USER, payload: { userName } });

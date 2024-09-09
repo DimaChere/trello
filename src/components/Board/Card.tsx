@@ -24,12 +24,13 @@ export const Card: React.FC<{ card: CardType }> = ({ card }) => {
 
     return (
         <div className="card" onClick={handleCardPopUpOpen}>
-            <div className="card__name">
+            <div className="card__header">
                 {isNameChanging ? (
                     <>
                         <input
                             type="text"
                             name="card-name"
+                            className="card__title"
                             value={newTitle}
                             onChange={(e) => setNewTitle(e.target.value)}
                             onKeyDown={handleNameChange}
@@ -38,7 +39,7 @@ export const Card: React.FC<{ card: CardType }> = ({ card }) => {
                     </>
                 ) : (
                     <>
-                        <h3>{card.title}</h3>
+                        <h3 className="card__title">{card.title}</h3>
                         <button
                             className=" button"
                             onClick={handleOpenNameEditor}
@@ -46,7 +47,7 @@ export const Card: React.FC<{ card: CardType }> = ({ card }) => {
                             <img
                                 src="/Edit.svg"
                                 alt="Изменить имя"
-                                className="card__changeTitle"
+                                className="card__change-title"
                             />
                         </button>
                     </>

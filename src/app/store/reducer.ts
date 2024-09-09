@@ -1,6 +1,12 @@
 import { Action, ACTION_TYPES, CardType, ColumnType, State } from "./types";
 
-export const reducer = (state: State, action: Action): State => {
+export const reducerWithStorage = (state: State, action: Action): State => {
+    const newState = reducer(state, action);
+    localStorage.setItem("appState", JSON.stringify(newState));
+    return newState;
+};
+
+const reducer = (state: State, action: Action): State => {
     switch (action.type) {
         case ACTION_TYPES.ADD_USER:
             return {

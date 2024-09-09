@@ -30,7 +30,7 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
                                 }}
                             ></textarea>
                             <button
-                                className="button cart-description__apply-changes-button"
+                                className="button button--apply-changes"
                                 onClick={handleDescriptionSubmit}
                             >
                                 <img src="/Done.svg" alt="Сохранить" />

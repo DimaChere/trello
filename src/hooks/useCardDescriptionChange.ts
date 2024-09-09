@@ -10,8 +10,16 @@ export const useCardDescriptionChange = (card: CardType) => {
         card.description || ""
     );
 
+    const textareaResize = () => {
+        if (inputRef.current) {
+            inputRef.current.style.height = "auto";
+            inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
+        }
+    };
+
     const handleOpenDescriptionEditor = () => {
         setIsDescriptionChanging((prev) => !prev);
+        setNewDescription((d) => d.trim());
     };
 
     useEffect(() => {
@@ -31,7 +39,7 @@ export const useCardDescriptionChange = (card: CardType) => {
             payload: {
                 columnId: card.columnId,
                 cardId: card.id,
-                updates: { description: newDescription },
+                updates: { description: newDescription.trim() },
             },
         });
         setIsDescriptionChanging(false);
@@ -47,13 +55,6 @@ export const useCardDescriptionChange = (card: CardType) => {
             },
         });
         setIsDescriptionChanging(false);
-    };
-
-    const textareaResize = () => {
-        if (inputRef.current) {
-            inputRef.current.style.height = "auto";
-            inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
-        }
     };
 
     return {
