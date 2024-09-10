@@ -1,10 +1,10 @@
-import { CardType } from "../../app/store/types";
-import { useCardDescriptionChange } from "../../hooks/useCardDescriptionChange";
-import SvgAdd from "../../icons/components/Add";
-import SvgDelete from "../../icons/components/Delete";
-import SvgDone from "../../icons/components/Done";
-import SvgEdit from "../../icons/components/Edit";
-import { ImageButton } from "../Buttons/ImageButton";
+import { CardType } from "../../../../app/store/types";
+import { useCardDescriptionChange } from "../../../../hooks/useCardDescriptionChange";
+import SvgAdd from "../../../../icons/components/Add";
+import SvgDelete from "../../../../icons/components/Delete";
+import SvgDone from "../../../../icons/components/Done";
+import SvgEdit from "../../../../icons/components/Edit";
+import { ImageButton } from "../../../Buttons/ImageButton";
 
 export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
     card,
@@ -18,6 +18,11 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
         handleDescriptionSubmit,
         handleDescriptionDelete,
     } = useCardDescriptionChange(card);
+
+    const isDescriptionExistsAndNotChanging = () =>
+        card.description && !isDescriptionChanging;
+    const isDescriptionNotExistAndNotChanging = () =>
+        !card.description && !isDescriptionChanging;
 
     return (
         <div className="cart-description">
@@ -42,7 +47,7 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
                             </ImageButton>
                         </>
                     )}
-                    {!isDescriptionChanging && card.description ? (
+                    {isDescriptionExistsAndNotChanging() ? (
                         <p className="cart-description__text">
                             {card.description}
                         </p>
@@ -54,12 +59,12 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
                 </p>
             </div>
             <div className="cart-description__edit">
-                {!isDescriptionChanging && !card.description && (
+                {isDescriptionNotExistAndNotChanging() && (
                     <ImageButton onClickFunction={handleOpenDescriptionEditor}>
                         <SvgAdd />
                     </ImageButton>
                 )}
-                {!isDescriptionChanging && card.description && (
+                {isDescriptionExistsAndNotChanging() && (
                     <>
                         <ImageButton
                             onClickFunction={handleOpenDescriptionEditor}

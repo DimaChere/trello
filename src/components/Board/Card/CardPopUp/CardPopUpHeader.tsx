@@ -1,9 +1,9 @@
-import { ACTION_TYPES, CardType } from "../../app/store/types";
-import { useBoard } from "../../hooks/useBoard";
-import { useCardNameChange } from "../../hooks/useCardNameChange";
-import SvgDelete from "../../icons/components/Delete";
-import SvgEdit from "../../icons/components/Edit";
-import { ImageButton } from "../Buttons/ImageButton";
+import { ACTION_TYPES, CardType } from "../../../../app/store/types";
+import { useBoard } from "../../../../hooks/useBoard";
+import { useCardNameChange } from "../../../../hooks/useCardNameChange";
+import SvgDelete from "../../../../icons/components/Delete";
+import SvgEdit from "../../../../icons/components/Edit";
+import { ImageButton } from "../../../Buttons/ImageButton";
 
 export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
     const { state, dispatch } = useBoard();
@@ -24,6 +24,19 @@ export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
         dispatch({ type: ACTION_TYPES.CLOSE_CARD_POPUP });
     };
 
+    const Breadcrumbs = () => {
+        const userName = state.user;
+        const columnTitle = state.columns.find(
+            (c) => c.id === card.columnId
+        )?.title;
+        const cardTitle = card.title;
+        return (
+            <>
+                {userName} / {columnTitle} / {cardTitle}
+            </>
+        );
+    };
+
     return (
         <div className="card-pop-up__header">
             {isNameChanging ? (
@@ -42,13 +55,7 @@ export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
                 <div>
                     <p className="card-pop-up__title">{card.title}</p>
                     <div className="card-pop-up__breadcrumbs">
-                        {state.user}&nbsp;/&nbsp;
-                        {
-                            state.columns.find((c) => c.id === card.columnId)
-                                ?.title
-                        }
-                        &nbsp;/&nbsp;
-                        {card.title}
+                        <Breadcrumbs />
                     </div>
                 </div>
             )}
