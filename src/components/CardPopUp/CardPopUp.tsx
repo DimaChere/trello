@@ -9,6 +9,7 @@ import { CardPopUpComments } from "./CardPopUpComments";
 import { CardPopUpDescription } from "./CardPopUpDescription";
 import { CardPopUpHeader } from "./CardPopUpHeader";
 import "./style.sass";
+import SvgClose from "../../icons/components/Close";
 
 export const CardPopUp: React.FC<{ cardInfo: CurrentPopupCardType }> = ({
     cardInfo,
@@ -35,7 +36,7 @@ export const CardPopUp: React.FC<{ cardInfo: CurrentPopupCardType }> = ({
                 className="card-pop-up__close button"
                 onClick={handleClosePopUp}
             >
-                <img src="/Close.svg" alt="Close" />
+                <SvgClose />
             </button>
             {curCard && (
                 <>

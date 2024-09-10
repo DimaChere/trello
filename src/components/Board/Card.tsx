@@ -1,6 +1,8 @@
 import { ACTION_TYPES, CardType } from "../../app/store/types";
 import { useBoard } from "../../hooks/useBoard";
 import { useCardNameChange } from "../../hooks/useCardNameChange";
+import SvgChat from "../../icons/components/Chat";
+import SvgEdit from "../../icons/components/Edit";
 
 export const Card: React.FC<{ card: CardType }> = ({ card }) => {
     const { dispatch } = useBoard();
@@ -30,7 +32,7 @@ export const Card: React.FC<{ card: CardType }> = ({ card }) => {
                         <input
                             type="text"
                             name="card-name"
-                            className="card__title"
+                            className="card__input"
                             value={newTitle}
                             onChange={(e) => setNewTitle(e.target.value)}
                             onKeyDown={handleNameChange}
@@ -41,14 +43,10 @@ export const Card: React.FC<{ card: CardType }> = ({ card }) => {
                     <>
                         <h3 className="card__title">{card.title}</h3>
                         <button
-                            className=" button"
+                            className="button"
                             onClick={handleOpenNameEditor}
                         >
-                            <img
-                                src="/Edit.svg"
-                                alt="Изменить имя"
-                                className="card__change-title"
-                            />
+                            <SvgEdit className="card__change-title" />
                         </button>
                     </>
                 )}
@@ -56,7 +54,7 @@ export const Card: React.FC<{ card: CardType }> = ({ card }) => {
 
             <div>
                 <p className="card__comments-description">
-                    <img src="/Chat.svg" alt="" />
+                    <SvgChat />
                     {card.comments.length} <span>Комментариев</span>
                 </p>
             </div>

@@ -1,5 +1,9 @@
 import { CardType } from "../../app/store/types";
 import { useCardDescriptionChange } from "../../hooks/useCardDescriptionChange";
+import SvgAdd from "../../icons/components/Add";
+import SvgDelete from "../../icons/components/Delete";
+import SvgDone from "../../icons/components/Done";
+import SvgEdit from "../../icons/components/Edit";
 
 export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
     card,
@@ -33,7 +37,7 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
                                 className="button button--apply-changes"
                                 onClick={handleDescriptionSubmit}
                             >
-                                <img src="/Done.svg" alt="Сохранить" />
+                                <SvgDone />
                             </button>
                         </>
                     )}
@@ -54,7 +58,7 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
                         className="button"
                         onClick={handleOpenDescriptionEditor}
                     >
-                        <img src="/Add.svg" alt="Добавить описание" />
+                        <SvgAdd />
                     </button>
                 )}
                 {!isDescriptionChanging && card.description && (
@@ -63,13 +67,13 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
                             className="button"
                             onClick={handleOpenDescriptionEditor}
                         >
-                            <img src="/Edit.svg" alt="Изменить описание" />
+                            <SvgEdit />
                         </button>
                         <button
                             className="button"
                             onClick={handleDescriptionDelete}
                         >
-                            <img src="/Delete.svg" alt="Удалить описание" />
+                            <SvgDelete />
                         </button>
                     </>
                 )}

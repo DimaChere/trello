@@ -1,6 +1,8 @@
 import { ACTION_TYPES, CardType } from "../../app/store/types";
 import { useBoard } from "../../hooks/useBoard";
 import { useCardNameChange } from "../../hooks/useCardNameChange";
+import SvgDelete from "../../icons/components/Delete";
+import SvgEdit from "../../icons/components/Edit";
 
 export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
     const { state, dispatch } = useBoard();
@@ -52,10 +54,10 @@ export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
 
             <div className="card-pop-up__edit-card">
                 <button className="button" onClick={handleOpenNameEditor}>
-                    <img src="/Edit.svg" alt="Изменить название" />
+                    <SvgEdit />
                 </button>
                 <button className="button" onClick={handlePopUpDelete}>
-                    <img src="/Delete.svg" alt="Удалить карточку" />
+                    <SvgDelete />
                 </button>
             </div>
         </div>

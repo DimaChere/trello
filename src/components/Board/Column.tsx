@@ -3,6 +3,7 @@ import { ACTION_TYPES, CardType, ColumnType } from "../../app/store/types";
 import { Card } from "./Card";
 import "./style.sass";
 import { v4 as uuidv4 } from "uuid";
+import SvgAdd from "../../icons/components/Add";
 
 export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
     const { dispatch } = useBoard();
@@ -34,7 +35,7 @@ export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
                         onClick={handleAddCard}
                         className="column__add-card button"
                     >
-                        <img src="/Add.svg" alt="Add card" />
+                        <SvgAdd />
                     </button>
                 </div>
                 <div className="column__cards">

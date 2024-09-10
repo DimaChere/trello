@@ -1,5 +1,8 @@
 import { CardType, CommentType } from "../../app/store/types";
 import { useCardCommentChange } from "../../hooks/useCardCommentChange";
+import SvgDelete from "../../icons/components/Delete";
+import SvgDone from "../../icons/components/Done";
+import SvgEdit from "../../icons/components/Edit";
 
 export const CardPopUpComment: React.FC<{
     comment: CommentType;
@@ -33,7 +36,7 @@ export const CardPopUpComment: React.FC<{
                             className="button button--apply-changes"
                             onClick={handleCommentSubmit}
                         >
-                            <img src="/Done.svg" alt="Сохранить" />
+                            <SvgDone />
                         </button>
                     </>
                 ) : (
@@ -47,10 +50,10 @@ export const CardPopUpComment: React.FC<{
                         className="button"
                         onClick={handleOpenCommentEditor}
                     >
-                        <img src="/Edit.svg" alt="Изменить" />
+                        <SvgEdit />
                     </button>
                     <button className="button" onClick={handleRemoveComment}>
-                        <img src="/Delete.svg" alt="Удалить" />
+                        <SvgDelete />
                     </button>
                 </div>
             )}
