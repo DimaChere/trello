@@ -72,18 +72,6 @@ const reducer = (state: State, action: Action): State => {
                 columns: updatedColumnsAfterEditCard,
             };
 
-        case ACTION_TYPES.OPEN_CARD_POPUP:
-            return {
-                ...state,
-                currentPopupCard: action.payload.card,
-            };
-
-        case ACTION_TYPES.CLOSE_CARD_POPUP:
-            return {
-                ...state,
-                currentPopupCard: null,
-            };
-
         case ACTION_TYPES.ADD_COMMENT:
             const updatedCardsWithComments = (cards: CardType[]) =>
                 cards.map((card) =>

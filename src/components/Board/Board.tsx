@@ -5,7 +5,7 @@ import { Column } from "./Column/Column";
 import "./style.sass";
 
 export const Board: React.FC = () => {
-    const { state } = useBoard();
+    const { state, currentCardPopup } = useBoard();
 
     return (
         <>
@@ -14,9 +14,7 @@ export const Board: React.FC = () => {
                     return <Column key={column.id} column={column} />;
                 })}
             </div>
-            {state.currentPopupCard && (
-                <CardPopUp cardInfo={state.currentPopupCard} />
-            )}
+            {currentCardPopup && <CardPopUp cardInfo={currentCardPopup} />}
         </>
     );
 };

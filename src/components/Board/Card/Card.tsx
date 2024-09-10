@@ -1,4 +1,4 @@
-import { ACTION_TYPES, CardType } from "../../../app/store/types";
+import { CardType } from "../../../app/store/types";
 import { useBoard } from "../../../hooks/useBoard";
 import { useCardNameChange } from "../../../hooks/useCardNameChange";
 import SvgChat from "../../../icons/components/Chat";
@@ -7,7 +7,7 @@ import { ImageButton } from "../../Buttons/ImageButton";
 import "./style.sass";
 
 export const Card: React.FC<{ card: CardType }> = ({ card }) => {
-    const { dispatch } = useBoard();
+    const { openCardPopup } = useBoard();
     const {
         isNameChanging,
         newTitle,
@@ -18,12 +18,7 @@ export const Card: React.FC<{ card: CardType }> = ({ card }) => {
     } = useCardNameChange(card);
 
     const handleCardPopUpOpen = () => {
-        dispatch({
-            type: ACTION_TYPES.OPEN_CARD_POPUP,
-            payload: {
-                card: card,
-            },
-        });
+        openCardPopup(card);
     };
 
     return (

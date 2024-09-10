@@ -1,5 +1,5 @@
-import { PropsWithChildren, useReducer } from "react";
-import { State } from "../store/types";
+import { PropsWithChildren, useReducer, useState } from "react";
+import { CurrentCardPopupType, State } from "../store/types";
 import { reducerWithStorage } from "../store/reducer";
 import { BoardContext } from "../store/BoardContext";
 
@@ -16,13 +16,31 @@ export const BoardProvider: React.FC<PropsWithChildren> = ({ children }) => {
                   { id: 4, title: "Done", cards: [] },
               ],
               user: "",
-              currentPopupCard: null,
           };
 
     const [state, dispatch] = useReducer(reducerWithStorage, initialState);
 
+    const [currentCardPopup, setCurrentCardPopup] =
+        useState<CurrentCardPopupType | null>(null);
+
+    const openCardPopup = (currentCardPopUp: CurrentCardPopupType) => {
+        setCurrentCardPopup(currentCardPopUp);
+    };
+
+    const closeCardPopup = () => {
+        setCurrentCardPopup(null);
+    };
+
     return (
-        <BoardContext.Provider value={{ state, dispatch }}>
+        <BoardContext.Provider
+            value={{
+                state,
+                currentCardPopup,
+                dispatch,
+                openCardPopup,
+                closeCardPopup,
+            }}
+        >
             {children}
         </BoardContext.Provider>
     );

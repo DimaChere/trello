@@ -6,7 +6,7 @@ import SvgEdit from "../../../../icons/components/Edit";
 import { ImageButton } from "../../../Buttons/ImageButton";
 
 export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
-    const { state, dispatch } = useBoard();
+    const { state, dispatch, closeCardPopup } = useBoard();
     const {
         isNameChanging,
         newTitle,
@@ -21,7 +21,7 @@ export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
             type: ACTION_TYPES.REMOVE_CARD,
             payload: { cardId: card.id, columnId: card.columnId },
         });
-        dispatch({ type: ACTION_TYPES.CLOSE_CARD_POPUP });
+        closeCardPopup();
     };
 
     const Breadcrumbs = () => {

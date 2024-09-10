@@ -1,10 +1,9 @@
 export type State = {
     columns: ColumnType[];
     user: string | null;
-    currentPopupCard: CurrentPopupCardType | null;
 };
 
-export type CurrentPopupCardType = {
+export type CurrentCardPopupType = {
     id: string;
     columnId: number;
 };
@@ -17,8 +16,6 @@ export enum ACTION_TYPES {
     MOVE_CARD = "MOVE_CARD",
     EDIT_CARD = "EDIT_CARD",
     ADD_COMMENT = "ADD_COMMENT",
-    OPEN_CARD_POPUP = "OPEN_CARD_POPUP",
-    CLOSE_CARD_POPUP = "CLOSE_CARD_POPUP",
 }
 
 export type Action =
@@ -51,9 +48,7 @@ export type Action =
     | {
           type: ACTION_TYPES.ADD_COMMENT;
           payload: { cardId: string; comment: CommentType };
-      }
-    | { type: ACTION_TYPES.OPEN_CARD_POPUP; payload: { card: CardType } }
-    | { type: ACTION_TYPES.CLOSE_CARD_POPUP };
+      };
 
 export type ColumnType = {
     id: number;
@@ -78,6 +73,9 @@ export type CommentType = {
 export type BoardContextType =
     | {
           state: State;
+          currentCardPopup: CurrentCardPopupType | null;
           dispatch: React.Dispatch<Action>;
+          openCardPopup: (currentCardPopUp: CurrentCardPopupType) => void;
+          closeCardPopup: () => void;
       }
     | undefined;

@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-    ACTION_TYPES,
-    CardType,
-    CurrentPopupCardType,
-} from "../../../../app/store/types";
+import { CardType, CurrentCardPopupType } from "../../../../app/store/types";
 import { useBoard } from "../../../../hooks/useBoard";
 import { CardPopUpComments } from "./CardPopUpComments";
 import { CardPopUpDescription } from "./CardPopUpDescription";
@@ -12,10 +8,10 @@ import "./style.sass";
 import SvgClose from "../../../../icons/components/Close";
 import { ImageButton } from "../../../Buttons/ImageButton";
 
-export const CardPopUp: React.FC<{ cardInfo: CurrentPopupCardType }> = ({
+export const CardPopUp: React.FC<{ cardInfo: CurrentCardPopupType }> = ({
     cardInfo,
 }) => {
-    const { state, dispatch } = useBoard();
+    const { state, closeCardPopup } = useBoard();
     const [currentCard, setCurrentCard] = useState<CardType>();
 
     useEffect(() => {
@@ -28,7 +24,7 @@ export const CardPopUp: React.FC<{ cardInfo: CurrentPopupCardType }> = ({
     }, [state.columns, cardInfo]);
 
     const handleClosePopUp = () => {
-        dispatch({ type: ACTION_TYPES.CLOSE_CARD_POPUP });
+        closeCardPopup();
     };
 
     return (
