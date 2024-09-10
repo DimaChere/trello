@@ -16,14 +16,14 @@ export const CardPopUp: React.FC<{ cardInfo: CurrentPopupCardType }> = ({
     cardInfo,
 }) => {
     const { state, dispatch } = useBoard();
-    const [curCard, setCurCard] = useState<CardType>();
+    const [currentCard, setCurrentCard] = useState<CardType>();
 
     useEffect(() => {
         const card: CardType | undefined = state.columns
             .find((element) => element.id === cardInfo.columnId)
             ?.cards?.find((card) => card.id === cardInfo.id);
         if (card) {
-            setCurCard(card);
+            setCurrentCard(card);
         }
     }, [state.columns, cardInfo]);
 
@@ -39,11 +39,11 @@ export const CardPopUp: React.FC<{ cardInfo: CurrentPopupCardType }> = ({
             >
                 <SvgClose />
             </ImageButton>
-            {curCard && (
+            {currentCard && (
                 <>
-                    <CardPopUpHeader card={curCard} />
-                    <CardPopUpDescription card={curCard} />
-                    <CardPopUpComments card={curCard} />
+                    <CardPopUpHeader card={currentCard} />
+                    <CardPopUpDescription card={currentCard} />
+                    <CardPopUpComments card={currentCard} />
                 </>
             )}
         </div>
