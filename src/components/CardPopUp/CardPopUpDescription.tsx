@@ -4,7 +4,7 @@ import SvgAdd from "../../icons/components/Add";
 import SvgDelete from "../../icons/components/Delete";
 import SvgDone from "../../icons/components/Done";
 import SvgEdit from "../../icons/components/Edit";
-import { ImageButton } from "../ImageButton";
+import { ImageButton } from "../Buttons/ImageButton";
 
 export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
     card,

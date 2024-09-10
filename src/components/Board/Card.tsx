@@ -3,7 +3,7 @@ import { useBoard } from "../../hooks/useBoard";
 import { useCardNameChange } from "../../hooks/useCardNameChange";
 import SvgChat from "../../icons/components/Chat";
 import SvgEdit from "../../icons/components/Edit";
-import { ImageButton } from "../ImageButton";
+import { ImageButton } from "../Buttons/ImageButton";
 
 export const Card: React.FC<{ card: CardType }> = ({ card }) => {
     const { dispatch } = useBoard();

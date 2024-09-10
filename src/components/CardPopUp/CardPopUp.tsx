@@ -10,7 +10,7 @@ import { CardPopUpDescription } from "./CardPopUpDescription";
 import { CardPopUpHeader } from "./CardPopUpHeader";
 import "./style.sass";
 import SvgClose from "../../icons/components/Close";
-import { ImageButton } from "../ImageButton";
+import { ImageButton } from "../Buttons/ImageButton";
 
 export const CardPopUp: React.FC<{ cardInfo: CurrentPopupCardType }> = ({
     cardInfo,

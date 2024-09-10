@@ -4,7 +4,7 @@ import { Card } from "./Card";
 import "./style.sass";
 import { v4 as uuidv4 } from "uuid";
 import SvgAdd from "../../icons/components/Add";
-import { ImageButton } from "../ImageButton";
+import { ImageButton } from "../Buttons/ImageButton";
 
 export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
     const { dispatch } = useBoard();

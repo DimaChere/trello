@@ -3,7 +3,7 @@ import { useBoard } from "../../hooks/useBoard";
 import { useCardNameChange } from "../../hooks/useCardNameChange";
 import SvgDelete from "../../icons/components/Delete";
 import SvgEdit from "../../icons/components/Edit";
-import { ImageButton } from "../ImageButton";
+import { ImageButton } from "../Buttons/ImageButton";
 
 export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
     const { state, dispatch } = useBoard();
