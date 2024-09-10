@@ -1,3 +1,4 @@
+import "./style.sass";
 export const ImageButton: React.FC<{
     children: React.ReactNode;
     onClickFunction: (e: React.MouseEvent) => void;
