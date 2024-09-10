@@ -4,6 +4,7 @@ import SvgAdd from "../../icons/components/Add";
 import SvgDelete from "../../icons/components/Delete";
 import SvgDone from "../../icons/components/Done";
 import SvgEdit from "../../icons/components/Edit";
+import { ImageButton } from "../ImageButton";
 
 export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
     card,
@@ -33,12 +34,12 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
                                     setNewDescription(e.target.value);
                                 }}
                             ></textarea>
-                            <button
-                                className="button button--apply-changes"
-                                onClick={handleDescriptionSubmit}
+                            <ImageButton
+                                onClickFunction={handleDescriptionSubmit}
+                                additionalStyles="button--apply-changes"
                             >
                                 <SvgDone />
-                            </button>
+                            </ImageButton>
                         </>
                     )}
                     {!isDescriptionChanging && card.description ? (
@@ -54,27 +55,21 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
             </div>
             <div className="cart-description__edit">
                 {!isDescriptionChanging && !card.description && (
-                    <button
-                        className="button"
-                        onClick={handleOpenDescriptionEditor}
-                    >
+                    <ImageButton onClickFunction={handleOpenDescriptionEditor}>
                         <SvgAdd />
-                    </button>
+                    </ImageButton>
                 )}
                 {!isDescriptionChanging && card.description && (
                     <>
-                        <button
-                            className="button"
-                            onClick={handleOpenDescriptionEditor}
+                        <ImageButton
+                            onClickFunction={handleOpenDescriptionEditor}
                         >
                             <SvgEdit />
-                        </button>
-                        <button
-                            className="button"
-                            onClick={handleDescriptionDelete}
-                        >
+                        </ImageButton>
+
+                        <ImageButton onClickFunction={handleDescriptionDelete}>
                             <SvgDelete />
-                        </button>
+                        </ImageButton>
                     </>
                 )}
             </div>

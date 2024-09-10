@@ -1,6 +1,7 @@
 import { CardType } from "../../app/store/types";
 import { useCardSendComment } from "../../hooks/useCardSendComment";
 import SvgSend from "../../icons/components/Send";
+import { ImageButton } from "../ImageButton";
 import { CardPopUpComment } from "./CardPopUpComment";
 
 export const CardPopUpComments: React.FC<{ card: CardType }> = ({ card }) => {
@@ -19,12 +20,12 @@ export const CardPopUpComments: React.FC<{ card: CardType }> = ({ card }) => {
                     onChange={(e) => setNewComment(e.target.value)}
                 />
                 <div>
-                    <button
-                        className="button card-comments__send-button"
-                        onClick={handleCommentSubmit}
+                    <ImageButton
+                        onClickFunction={handleCommentSubmit}
+                        additionalStyles="card-comments__send-button"
                     >
                         <SvgSend />
-                    </button>
+                    </ImageButton>
                 </div>
             </div>
             <div className="card-comments__comments-block">

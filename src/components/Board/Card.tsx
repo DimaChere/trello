@@ -3,6 +3,7 @@ import { useBoard } from "../../hooks/useBoard";
 import { useCardNameChange } from "../../hooks/useCardNameChange";
 import SvgChat from "../../icons/components/Chat";
 import SvgEdit from "../../icons/components/Edit";
+import { ImageButton } from "../ImageButton";
 
 export const Card: React.FC<{ card: CardType }> = ({ card }) => {
     const { dispatch } = useBoard();
@@ -42,12 +43,9 @@ export const Card: React.FC<{ card: CardType }> = ({ card }) => {
                 ) : (
                     <>
                         <h3 className="card__title">{card.title}</h3>
-                        <button
-                            className="button"
-                            onClick={handleOpenNameEditor}
-                        >
+                        <ImageButton onClickFunction={handleOpenNameEditor}>
                             <SvgEdit className="card__change-title" />
-                        </button>
+                        </ImageButton>
                     </>
                 )}
             </div>

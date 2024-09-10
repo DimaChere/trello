@@ -4,6 +4,7 @@ import { Card } from "./Card";
 import "./style.sass";
 import { v4 as uuidv4 } from "uuid";
 import SvgAdd from "../../icons/components/Add";
+import { ImageButton } from "../ImageButton";
 
 export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
     const { dispatch } = useBoard();
@@ -31,12 +32,12 @@ export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
 
             <div className="column">
                 <div className="column__controls">
-                    <button
-                        onClick={handleAddCard}
-                        className="column__add-card button"
+                    <ImageButton
+                        onClickFunction={handleAddCard}
+                        additionalStyles="column__add-card"
                     >
                         <SvgAdd />
-                    </button>
+                    </ImageButton>
                 </div>
                 <div className="column__cards">
                     {column.cards.map((card) => (

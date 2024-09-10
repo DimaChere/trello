@@ -3,6 +3,7 @@ import { useBoard } from "../../hooks/useBoard";
 import { useCardNameChange } from "../../hooks/useCardNameChange";
 import SvgDelete from "../../icons/components/Delete";
 import SvgEdit from "../../icons/components/Edit";
+import { ImageButton } from "../ImageButton";
 
 export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
     const { state, dispatch } = useBoard();
@@ -53,12 +54,12 @@ export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
             )}
 
             <div className="card-pop-up__edit-card">
-                <button className="button" onClick={handleOpenNameEditor}>
+                <ImageButton onClickFunction={handleOpenNameEditor}>
                     <SvgEdit />
-                </button>
-                <button className="button" onClick={handlePopUpDelete}>
+                </ImageButton>
+                <ImageButton onClickFunction={handlePopUpDelete}>
                     <SvgDelete />
-                </button>
+                </ImageButton>
             </div>
         </div>
     );

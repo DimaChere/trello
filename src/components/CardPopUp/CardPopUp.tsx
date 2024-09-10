@@ -10,6 +10,7 @@ import { CardPopUpDescription } from "./CardPopUpDescription";
 import { CardPopUpHeader } from "./CardPopUpHeader";
 import "./style.sass";
 import SvgClose from "../../icons/components/Close";
+import { ImageButton } from "../ImageButton";
 
 export const CardPopUp: React.FC<{ cardInfo: CurrentPopupCardType }> = ({
     cardInfo,
@@ -32,12 +33,12 @@ export const CardPopUp: React.FC<{ cardInfo: CurrentPopupCardType }> = ({
 
     return (
         <div className="card-pop-up">
-            <button
-                className="card-pop-up__close button"
-                onClick={handleClosePopUp}
+            <ImageButton
+                onClickFunction={handleClosePopUp}
+                additionalStyles="card-pop-up__close"
             >
                 <SvgClose />
-            </button>
+            </ImageButton>
             {curCard && (
                 <>
                     <CardPopUpHeader card={curCard} />

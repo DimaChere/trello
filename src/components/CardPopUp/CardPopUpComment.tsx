@@ -3,6 +3,7 @@ import { useCardCommentChange } from "../../hooks/useCardCommentChange";
 import SvgDelete from "../../icons/components/Delete";
 import SvgDone from "../../icons/components/Done";
 import SvgEdit from "../../icons/components/Edit";
+import { ImageButton } from "../ImageButton";
 
 export const CardPopUpComment: React.FC<{
     comment: CommentType;
@@ -32,12 +33,12 @@ export const CardPopUpComment: React.FC<{
                             ref={inputRef}
                             onChange={(e) => setNewComment(e.target.value)}
                         ></textarea>
-                        <button
-                            className="button button--apply-changes"
-                            onClick={handleCommentSubmit}
+                        <ImageButton
+                            onClickFunction={handleCommentSubmit}
+                            additionalStyles="button--apply-changes"
                         >
                             <SvgDone />
-                        </button>
+                        </ImageButton>
                     </>
                 ) : (
                     <p className="comment__comment">{comment.text}</p>
@@ -46,15 +47,12 @@ export const CardPopUpComment: React.FC<{
 
             {!isCommentChanging && (
                 <div className="comment__controls">
-                    <button
-                        className="button"
-                        onClick={handleOpenCommentEditor}
-                    >
+                    <ImageButton onClickFunction={handleOpenCommentEditor}>
                         <SvgEdit />
-                    </button>
-                    <button className="button" onClick={handleRemoveComment}>
+                    </ImageButton>
+                    <ImageButton onClickFunction={handleRemoveComment}>
                         <SvgDelete />
-                    </button>
+                    </ImageButton>
                 </div>
             )}
         </div>
