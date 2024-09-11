@@ -8,11 +8,13 @@ export const CardPopUpComments: React.FC<{ card: CardType }> = ({ card }) => {
     const { inputRef, setNewComment, handleCommentSubmit } =
         useCardSendComment(card);
 
+    const hasComments = card.comments.length > 0;
+
+    const commentsDescription = `${card.comments.length} комментариев`;
+
     return (
         <div className="card-comments">
-            <p className="card__comments-description">
-                {card.comments.length} <span>Комментариев</span>
-            </p>
+            <p className="card__comments-description">{commentsDescription}</p>
             <div className="card-comments__send-comment">
                 <textarea
                     className="card-comments__textarea"
@@ -29,7 +31,7 @@ export const CardPopUpComments: React.FC<{ card: CardType }> = ({ card }) => {
                 </div>
             </div>
             <div className="card-comments__comments-block">
-                {card.comments.length > 0 &&
+                {hasComments &&
                     card.comments.map((comment) => (
                         <CardPopUpComment
                             key={comment.id}

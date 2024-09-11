@@ -24,18 +24,13 @@ export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
         closeCardPopup();
     };
 
-    const Breadcrumbs = () => {
-        const userName = state.user;
-        const columnTitle = state.columns.find(
-            (c) => c.id === card.columnId
-        )?.title;
-        const cardTitle = card.title;
-        return (
-            <>
-                {userName} / {columnTitle} / {cardTitle}
-            </>
-        );
-    };
+    const userName = state.user;
+    const columnTitle = state.columns.find(
+        (c) => c.id === card.columnId
+    )?.title;
+    const cardTitle = card.title;
+
+    const breadcrumbs = `${userName} / ${columnTitle} / ${cardTitle}`;
 
     return (
         <div className="card-pop-up__header">
@@ -55,7 +50,7 @@ export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
                 <div>
                     <p className="card-pop-up__title">{card.title}</p>
                     <div className="card-pop-up__breadcrumbs">
-                        <Breadcrumbs />
+                        {breadcrumbs}
                     </div>
                 </div>
             )}

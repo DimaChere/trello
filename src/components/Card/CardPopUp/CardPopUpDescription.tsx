@@ -19,9 +19,10 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
         handleDescriptionDelete,
     } = useCardDescriptionChange(card);
 
-    const hasDescription = () => card.description && !isDescriptionChanging;
-    const isEmptyDescription = () =>
-        !card.description && !isDescriptionChanging;
+    const hasDescription = Boolean(card.description && !isDescriptionChanging);
+    const isEmptyDescription = Boolean(
+        !card.description && !isDescriptionChanging
+    );
 
     return (
         <div className="cart-description">
@@ -46,7 +47,7 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
                             </ImageButton>
                         </>
                     )}
-                    {hasDescription() ? (
+                    {hasDescription ? (
                         <p className="cart-description__text">
                             {card.description}
                         </p>
@@ -58,12 +59,12 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
                 </p>
             </div>
             <div className="cart-description__edit">
-                {isEmptyDescription() && (
+                {isEmptyDescription && (
                     <ImageButton onClickFunction={handleOpenDescriptionEditor}>
                         <SvgAdd />
                     </ImageButton>
                 )}
-                {hasDescription() && (
+                {hasDescription && (
                     <>
                         <ImageButton
                             onClickFunction={handleOpenDescriptionEditor}

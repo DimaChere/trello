@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { CardType, CurrentCardPopupType } from "../../../app/store/types";
+import {
+    CardType,
+    ColumnType,
+    CurrentCardPopupType,
+} from "../../../app/store/types";
 import { useBoard } from "../../../hooks/useBoard";
 import { CardPopUpComments } from "./CardPopUpComments";
 import { CardPopUpDescription } from "./CardPopUpDescription";
@@ -15,9 +19,13 @@ export const CardPopUp: React.FC<{ cardInfo: CurrentCardPopupType }> = ({
     const [currentCard, setCurrentCard] = useState<CardType>();
 
     useEffect(() => {
-        const card: CardType | undefined = state.columns
-            .find((element) => element.id === cardInfo.columnId)
-            ?.cards?.find((card) => card.id === cardInfo.id);
+        const column: ColumnType | undefined = state.columns.find(
+            (element) => element.id === cardInfo.columnId
+        );
+        const card: CardType | undefined = column?.cards?.find(
+            (card) => card.id === cardInfo.id
+        );
+
         if (card) {
             setCurrentCard(card);
         }

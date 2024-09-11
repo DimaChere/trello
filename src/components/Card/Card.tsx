@@ -21,6 +21,8 @@ export const Card: React.FC<{ card: CardType }> = ({ card }) => {
         openCardPopup(card);
     };
 
+    const commentsDescription = `${card.comments.length} комментариев`;
+
     return (
         <div className="card" onClick={handleCardPopUpOpen}>
             <div className="card__header">
@@ -46,11 +48,9 @@ export const Card: React.FC<{ card: CardType }> = ({ card }) => {
                 )}
             </div>
 
-            <div>
-                <p className="card__comments-description">
-                    <SvgChat />
-                    {card.comments.length} <span>Комментариев</span>
-                </p>
+            <div className="card__comments-description">
+                <SvgChat />
+                <p>{commentsDescription}</p>
             </div>
         </div>
     );
