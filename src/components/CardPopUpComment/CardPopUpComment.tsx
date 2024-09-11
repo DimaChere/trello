@@ -4,7 +4,7 @@ import SvgDelete from "../../icons/components/Delete";
 import SvgDone from "../../icons/components/Done";
 import SvgEdit from "../../icons/components/Edit";
 import { ImageButton } from "../Buttons/ImageButton";
-import "./style.sass";
+import "./CardPopUpComment.style.sass";
 
 export const CardPopUpComment: React.FC<{
     comment: CommentType;

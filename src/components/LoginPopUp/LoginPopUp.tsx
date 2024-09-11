@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./style.sass";
+import "./LoginPopUp.style.sass";
 import { useBoard } from "../../hooks/useBoard";
 import { ACTION_TYPES } from "../../app/store/types";
 

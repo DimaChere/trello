@@ -4,7 +4,7 @@ import { useCardNameChange } from "../../hooks/useCardNameChange";
 import SvgDelete from "../../icons/components/Delete";
 import SvgEdit from "../../icons/components/Edit";
 import { ImageButton } from "../Buttons/ImageButton";
-import "./style.sass";
+import "./CardPopUpHeader.style.sass";
 
 export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
     const { state, dispatch, closeCardPopup } = useBoard();

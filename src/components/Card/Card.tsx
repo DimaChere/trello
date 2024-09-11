@@ -4,7 +4,7 @@ import { useCardNameChange } from "../../hooks/useCardNameChange";
 import SvgChat from "../../icons/components/Chat";
 import SvgEdit from "../../icons/components/Edit";
 import { ImageButton } from "../Buttons/ImageButton";
-import "./style.sass";
+import "./Card.style.sass";
 
 export const Card: React.FC<{ card: CardType }> = ({ card }) => {
     const { openCardPopup } = useBoard();

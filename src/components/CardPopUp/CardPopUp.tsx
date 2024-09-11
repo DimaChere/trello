@@ -8,7 +8,7 @@ import { useBoard } from "../../hooks/useBoard";
 import { CardPopUpComments } from "../CardPopUpComments/CardPopUpComments";
 import { CardPopUpDescription } from "../CardPopUpDescription/CardPopUpDescription";
 import { CardPopUpHeader } from "../CardPopUpHeader/CardPopUpHeader";
-import "./style.sass";
+import "./CardPopUp.style.sass";
 import SvgClose from "../../icons/components/Close";
 import { ImageButton } from "../Buttons/ImageButton";
 

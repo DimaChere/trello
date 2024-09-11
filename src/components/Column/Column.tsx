@@ -1,7 +1,7 @@
 import { useBoard } from "../../hooks/useBoard";
 import { ACTION_TYPES, CardType, ColumnType } from "../../app/store/types";
 import { Card } from "../Card/Card";
-import "./style.sass";
+import "./Column.style.sass";
 import { v4 as uuidv4 } from "uuid";
 import SvgAdd from "../../icons/components/Add";
 import { ImageButton } from "../Buttons/ImageButton";

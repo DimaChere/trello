@@ -5,7 +5,7 @@ import SvgDelete from "../../icons/components/Delete";
 import SvgDone from "../../icons/components/Done";
 import SvgEdit from "../../icons/components/Edit";
 import { ImageButton } from "../Buttons/ImageButton";
-import "./style.sass";
+import "./CardPopUpDescription.style.sass";
 
 export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
     card,
