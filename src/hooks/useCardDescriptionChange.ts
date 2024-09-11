@@ -55,6 +55,7 @@ export const useCardDescriptionChange = (card: CardType) => {
             },
         });
         setIsDescriptionChanging(false);
+        setNewDescription("");
     };
 
     return {
