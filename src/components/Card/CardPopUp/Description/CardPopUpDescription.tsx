@@ -1,10 +1,11 @@
-import { CardType } from "../../../app/store/types";
-import { useCardDescriptionChange } from "../../../hooks/useCardDescriptionChange";
-import SvgAdd from "../../../icons/components/Add";
-import SvgDelete from "../../../icons/components/Delete";
-import SvgDone from "../../../icons/components/Done";
-import SvgEdit from "../../../icons/components/Edit";
-import { ImageButton } from "../../Buttons/ImageButton";
+import { CardType } from "../../../../app/store/types";
+import { useCardDescriptionChange } from "../../../../hooks/useCardDescriptionChange";
+import SvgAdd from "../../../../icons/components/Add";
+import SvgDelete from "../../../../icons/components/Delete";
+import SvgDone from "../../../../icons/components/Done";
+import SvgEdit from "../../../../icons/components/Edit";
+import { ImageButton } from "../../../Buttons/ImageButton";
+import "./style.sass";
 
 export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
     card,
@@ -25,14 +26,14 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
     );
 
     return (
-        <div className="cart-description">
-            <div className="cart-description__content">
-                <p className="cart-description__header">Описание</p>
-                <p className="cart-description__description">
+        <div className="card-description">
+            <div className="card-description__content">
+                <p className="card-description__header">Описание</p>
+                <p className="card-description__description">
                     {isDescriptionChanging && (
                         <>
                             <textarea
-                                className="cart-description__textarea cart-description__text"
+                                className="card-description__textarea card-description__text"
                                 ref={inputRef}
                                 value={newDescription}
                                 onChange={(e) => {
@@ -48,17 +49,17 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
                         </>
                     )}
                     {hasDescription ? (
-                        <p className="cart-description__text">
+                        <p className="card-description__text">
                             {card.description}
                         </p>
                     ) : (
-                        <p className="cart-description__text">
+                        <p className="card-description__text">
                             Описание отсутствует
                         </p>
                     )}
                 </p>
             </div>
-            <div className="cart-description__edit">
+            <div className="card-description__edit">
                 {isEmptyDescription && (
                     <ImageButton onClickFunction={handleOpenDescriptionEditor}>
                         <SvgAdd />

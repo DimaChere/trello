@@ -1,9 +1,10 @@
-import { ACTION_TYPES, CardType } from "../../../app/store/types";
-import { useBoard } from "../../../hooks/useBoard";
-import { useCardNameChange } from "../../../hooks/useCardNameChange";
-import SvgDelete from "../../../icons/components/Delete";
-import SvgEdit from "../../../icons/components/Edit";
-import { ImageButton } from "../../Buttons/ImageButton";
+import { ACTION_TYPES, CardType } from "../../../../app/store/types";
+import { useBoard } from "../../../../hooks/useBoard";
+import { useCardNameChange } from "../../../../hooks/useCardNameChange";
+import SvgDelete from "../../../../icons/components/Delete";
+import SvgEdit from "../../../../icons/components/Edit";
+import { ImageButton } from "../../../Buttons/ImageButton";
+import "./style.sass";
 
 export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
     const { state, dispatch, closeCardPopup } = useBoard();
@@ -33,29 +34,29 @@ export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
     const breadcrumbs = `${userName} / ${columnTitle} / ${cardTitle}`;
 
     return (
-        <div className="card-pop-up__header">
+        <div className="pop-up-header">
             {isNameChanging ? (
                 <>
                     <input
                         type="text"
                         name="card-name"
-                        className="card-pop-up__title"
+                        className="pop-up-header__title"
                         value={newTitle}
                         onChange={(e) => setNewTitle(e.target.value)}
                         onKeyDown={handleNameChange}
                         ref={inputRef}
-                    ></input>
+                    />
                 </>
             ) : (
                 <div>
-                    <p className="card-pop-up__title">{card.title}</p>
-                    <div className="card-pop-up__breadcrumbs">
+                    <p className="pop-up-header__title">{card.title}</p>
+                    <div className="pop-up-header__breadcrumbs">
                         {breadcrumbs}
                     </div>
                 </div>
             )}
 
-            <div className="card-pop-up__edit-card">
+            <div className="pop-up-header__edit-card">
                 <ImageButton onClickFunction={handleOpenNameEditor}>
                     <SvgEdit />
                 </ImageButton>

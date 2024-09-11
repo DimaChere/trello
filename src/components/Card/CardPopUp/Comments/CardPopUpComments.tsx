@@ -1,8 +1,9 @@
-import { CardType } from "../../../app/store/types";
-import { useCardSendComment } from "../../../hooks/useCardSendComment";
-import SvgSend from "../../../icons/components/Send";
-import { ImageButton } from "../../Buttons/ImageButton";
-import { CardPopUpComment } from "./CardPopUpComment";
+import { CardType } from "../../../../app/store/types";
+import { useCardSendComment } from "../../../../hooks/useCardSendComment";
+import SvgSend from "../../../../icons/components/Send";
+import { ImageButton } from "../../../Buttons/ImageButton";
+import { CardPopUpComment } from "./Comment/CardPopUpComment";
+import "./style.sass";
 
 export const CardPopUpComments: React.FC<{ card: CardType }> = ({ card }) => {
     const { inputRef, setNewComment, handleCommentSubmit } =

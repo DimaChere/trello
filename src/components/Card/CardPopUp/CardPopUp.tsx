@@ -5,9 +5,9 @@ import {
     CurrentCardPopupType,
 } from "../../../app/store/types";
 import { useBoard } from "../../../hooks/useBoard";
-import { CardPopUpComments } from "./CardPopUpComments";
-import { CardPopUpDescription } from "./CardPopUpDescription";
-import { CardPopUpHeader } from "./CardPopUpHeader";
+import { CardPopUpComments } from "./Comments/CardPopUpComments";
+import { CardPopUpDescription } from "./Description/CardPopUpDescription";
+import { CardPopUpHeader } from "./Header/CardPopUpHeader";
 import "./style.sass";
 import SvgClose from "../../../icons/components/Close";
 import { ImageButton } from "../../Buttons/ImageButton";
