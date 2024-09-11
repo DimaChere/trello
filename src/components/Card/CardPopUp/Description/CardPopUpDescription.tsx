@@ -41,11 +41,10 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
                                 }}
                             ></textarea>
                             <ImageButton
-                                onClickFunction={handleDescriptionSubmit}
+                                icon={<SvgDone />}
                                 additionalStyles="button--apply-changes"
-                            >
-                                <SvgDone />
-                            </ImageButton>
+                                onClickFunction={handleDescriptionSubmit}
+                            />
                         </>
                     )}
                     {hasDescription ? (
@@ -61,21 +60,22 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
             </div>
             <div className="card-description__edit">
                 {isEmptyDescription && (
-                    <ImageButton onClickFunction={handleOpenDescriptionEditor}>
-                        <SvgAdd />
-                    </ImageButton>
+                    <ImageButton
+                        icon={<SvgAdd />}
+                        onClickFunction={handleOpenDescriptionEditor}
+                    />
                 )}
                 {hasDescription && (
                     <>
                         <ImageButton
+                            icon={<SvgEdit />}
                             onClickFunction={handleOpenDescriptionEditor}
-                        >
-                            <SvgEdit />
-                        </ImageButton>
+                        />
 
-                        <ImageButton onClickFunction={handleDescriptionDelete}>
-                            <SvgDelete />
-                        </ImageButton>
+                        <ImageButton
+                            icon={<SvgDelete />}
+                            onClickFunction={handleDescriptionDelete}
+                        />
                     </>
                 )}
             </div>

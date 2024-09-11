@@ -33,11 +33,10 @@ export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
             <div className="column">
                 <div className="column__controls">
                     <ImageButton
-                        onClickFunction={handleAddCard}
+                        icon={<SvgAdd />}
                         additionalStyles="column__add-card"
-                    >
-                        <SvgAdd />
-                    </ImageButton>
+                        onClickFunction={handleAddCard}
+                    />
                 </div>
                 <div className="column__cards">
                     {column.cards.map((card) => (

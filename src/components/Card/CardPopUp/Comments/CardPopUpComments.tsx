@@ -24,11 +24,10 @@ export const CardPopUpComments: React.FC<{ card: CardType }> = ({ card }) => {
                 />
                 <div>
                     <ImageButton
-                        onClickFunction={handleCommentSubmit}
+                        icon={<SvgSend />}
                         additionalStyles="card-comments__send-button"
-                    >
-                        <SvgSend />
-                    </ImageButton>
+                        onClickFunction={handleCommentSubmit}
+                    />
                 </div>
             </div>
             <div className="card-comments__comments-block">

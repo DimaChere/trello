@@ -39,11 +39,10 @@ export const CardPopUp: React.FC<{ cardInfo: CurrentCardPopupType }> = ({
         <div className="card-pop-up-background">
             <div className="card-pop-up">
                 <ImageButton
-                    onClickFunction={handleClosePopUp}
+                    icon={<SvgClose />}
                     additionalStyles="card-pop-up__close"
-                >
-                    <SvgClose />
-                </ImageButton>
+                    onClickFunction={handleClosePopUp}
+                />
                 {currentCard && (
                     <>
                         <CardPopUpHeader card={currentCard} />

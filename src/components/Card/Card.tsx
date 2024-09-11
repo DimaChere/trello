@@ -41,9 +41,10 @@ export const Card: React.FC<{ card: CardType }> = ({ card }) => {
                 ) : (
                     <>
                         <h3 className="card__title">{card.title}</h3>
-                        <ImageButton onClickFunction={handleOpenNameEditor}>
-                            <SvgEdit className="card__change-title" />
-                        </ImageButton>
+                        <ImageButton
+                            icon={<SvgEdit className="card__change-title" />}
+                            onClickFunction={handleOpenNameEditor}
+                        />
                     </>
                 )}
             </div>

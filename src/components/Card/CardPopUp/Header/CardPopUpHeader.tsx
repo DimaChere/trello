@@ -57,12 +57,14 @@ export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
             )}
 
             <div className="pop-up-header__edit-card">
-                <ImageButton onClickFunction={handleOpenNameEditor}>
-                    <SvgEdit />
-                </ImageButton>
-                <ImageButton onClickFunction={handlePopUpDelete}>
-                    <SvgDelete />
-                </ImageButton>
+                <ImageButton
+                    icon={<SvgEdit />}
+                    onClickFunction={handleOpenNameEditor}
+                />
+                <ImageButton
+                    icon={<SvgDelete />}
+                    onClickFunction={handlePopUpDelete}
+                />
             </div>
         </div>
     );

@@ -35,11 +35,10 @@ export const CardPopUpComment: React.FC<{
                             onChange={(e) => setNewComment(e.target.value)}
                         ></textarea>
                         <ImageButton
-                            onClickFunction={handleCommentSubmit}
+                            icon={<SvgDone />}
                             additionalStyles="button--apply-changes"
-                        >
-                            <SvgDone />
-                        </ImageButton>
+                            onClickFunction={handleCommentSubmit}
+                        />
                     </>
                 ) : (
                     <p className="comment__comment">{comment.text}</p>
@@ -48,12 +47,14 @@ export const CardPopUpComment: React.FC<{
 
             {!isCommentChanging && (
                 <div className="comment__controls">
-                    <ImageButton onClickFunction={handleOpenCommentEditor}>
-                        <SvgEdit />
-                    </ImageButton>
-                    <ImageButton onClickFunction={handleRemoveComment}>
-                        <SvgDelete />
-                    </ImageButton>
+                    <ImageButton
+                        icon={<SvgEdit />}
+                        onClickFunction={handleOpenCommentEditor}
+                    />
+                    <ImageButton
+                        icon={<SvgDelete />}
+                        onClickFunction={handleRemoveComment}
+                    />
                 </div>
             )}
         </div>

@@ -1,15 +1,22 @@
-import "./style.sass";
-export const ImageButton: React.FC<{
-    children: React.ReactNode;
-    onClickFunction: (e: React.MouseEvent) => void;
+import "./ImageButton.style.sass";
+
+type ImageButtonType = {
+    icon: React.ReactNode;
     additionalStyles?: string;
-}> = ({ children, onClickFunction, additionalStyles = "" }) => {
+    onClickFunction: (e: React.MouseEvent) => void;
+};
+
+export const ImageButton: React.FC<ImageButtonType> = ({
+    icon,
+    additionalStyles = "",
+    onClickFunction,
+}) => {
     return (
         <button
             onClick={onClickFunction}
             className={`button ${additionalStyles}`}
         >
-            {children}
+            {icon}
         </button>
     );
 };
