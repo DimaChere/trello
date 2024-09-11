@@ -3,7 +3,7 @@ import "./style.sass";
 import { useBoard } from "../../hooks/useBoard";
 import { ACTION_TYPES } from "../../app/store/types";
 
-export const PopUp: React.FC = () => {
+export const LoginPopUp: React.FC = () => {
     const [userName, setUserName] = useState<string>("");
     const [isRegisterSuccess, setIsRegisterSuccess] = useState<boolean>(false);
     const { state, dispatch } = useBoard();

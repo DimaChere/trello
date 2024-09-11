@@ -1,13 +1,13 @@
 import "./App.sass";
 import { Board } from "./components/Board/Board";
-import { PopUp } from "./components/PopUp/PopUp";
+import { LoginPopUp } from "./components/LoginPopUp/LoginPopUp";
 import { BoardProvider } from "./app/providers/BoardProvirder";
 
 const App: React.FC = () => {
     return (
         <main className="app">
             <BoardProvider>
-                <PopUp />
+                <LoginPopUp />
                 <Board />
             </BoardProvider>
         </main>
