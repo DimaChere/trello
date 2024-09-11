@@ -1,6 +1,6 @@
 import { ColumnType } from "../../app/store/types";
 import { useBoard } from "../../hooks/useBoard";
-import { CardPopUp } from "../Card/CardPopUp/CardPopUp";
+import { CardPopUp } from "../CardPopUp/CardPopUp";
 import { Column } from "../Column/Column";
 import "./style.sass";
 

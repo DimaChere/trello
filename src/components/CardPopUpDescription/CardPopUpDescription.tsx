@@ -1,10 +1,10 @@
-import { CardType } from "../../../../app/store/types";
-import { useCardDescriptionChange } from "../../../../hooks/useCardDescriptionChange";
-import SvgAdd from "../../../../icons/components/Add";
-import SvgDelete from "../../../../icons/components/Delete";
-import SvgDone from "../../../../icons/components/Done";
-import SvgEdit from "../../../../icons/components/Edit";
-import { ImageButton } from "../../../Buttons/ImageButton";
+import { CardType } from "../../app/store/types";
+import { useCardDescriptionChange } from "../../hooks/useCardDescriptionChange";
+import SvgAdd from "../../icons/components/Add";
+import SvgDelete from "../../icons/components/Delete";
+import SvgDone from "../../icons/components/Done";
+import SvgEdit from "../../icons/components/Edit";
+import { ImageButton } from "../Buttons/ImageButton";
 import "./style.sass";
 
 export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
