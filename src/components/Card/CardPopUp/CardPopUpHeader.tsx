@@ -1,9 +1,9 @@
-import { ACTION_TYPES, CardType } from "../../../../app/store/types";
-import { useBoard } from "../../../../hooks/useBoard";
-import { useCardNameChange } from "../../../../hooks/useCardNameChange";
-import SvgDelete from "../../../../icons/components/Delete";
-import SvgEdit from "../../../../icons/components/Edit";
-import { ImageButton } from "../../../Buttons/ImageButton";
+import { ACTION_TYPES, CardType } from "../../../app/store/types";
+import { useBoard } from "../../../hooks/useBoard";
+import { useCardNameChange } from "../../../hooks/useCardNameChange";
+import SvgDelete from "../../../icons/components/Delete";
+import SvgEdit from "../../../icons/components/Edit";
+import { ImageButton } from "../../Buttons/ImageButton";
 
 export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
     const { state, dispatch, closeCardPopup } = useBoard();

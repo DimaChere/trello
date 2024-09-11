@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { CardType, CurrentCardPopupType } from "../../../../app/store/types";
-import { useBoard } from "../../../../hooks/useBoard";
+import { CardType, CurrentCardPopupType } from "../../../app/store/types";
+import { useBoard } from "../../../hooks/useBoard";
 import { CardPopUpComments } from "./CardPopUpComments";
 import { CardPopUpDescription } from "./CardPopUpDescription";
 import { CardPopUpHeader } from "./CardPopUpHeader";
 import "./style.sass";
-import SvgClose from "../../../../icons/components/Close";
-import { ImageButton } from "../../../Buttons/ImageButton";
+import SvgClose from "../../../icons/components/Close";
+import { ImageButton } from "../../Buttons/ImageButton";
 
 export const CardPopUp: React.FC<{ cardInfo: CurrentCardPopupType }> = ({
     cardInfo,

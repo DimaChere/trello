@@ -1,7 +1,7 @@
 import { ColumnType } from "../../app/store/types";
 import { useBoard } from "../../hooks/useBoard";
-import { CardPopUp } from "./Card/CardPopUp/CardPopUp";
-import { Column } from "./Column/Column";
+import { CardPopUp } from "../Card/CardPopUp/CardPopUp";
+import { Column } from "../Column/Column";
 import "./style.sass";
 
 export const Board: React.FC = () => {

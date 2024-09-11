@@ -1,9 +1,9 @@
-import { CardType } from "../../../app/store/types";
-import { useBoard } from "../../../hooks/useBoard";
-import { useCardNameChange } from "../../../hooks/useCardNameChange";
-import SvgChat from "../../../icons/components/Chat";
-import SvgEdit from "../../../icons/components/Edit";
-import { ImageButton } from "../../Buttons/ImageButton";
+import { CardType } from "../../app/store/types";
+import { useBoard } from "../../hooks/useBoard";
+import { useCardNameChange } from "../../hooks/useCardNameChange";
+import SvgChat from "../../icons/components/Chat";
+import SvgEdit from "../../icons/components/Edit";
+import { ImageButton } from "../Buttons/ImageButton";
 import "./style.sass";
 
 export const Card: React.FC<{ card: CardType }> = ({ card }) => {
