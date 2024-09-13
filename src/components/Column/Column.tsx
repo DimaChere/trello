@@ -1,8 +1,10 @@
 import { useBoard } from "../../hooks/useBoard";
 import { ACTION_TYPES, CardType, ColumnType } from "../../app/store/types";
-import { Card } from "./Card";
-import "./style.sass";
+import { Card } from "../Card/Card";
+import "./Column.style.sass";
 import { v4 as uuidv4 } from "uuid";
+import SvgAdd from "../../icons/components/Add";
+import { ImageButton } from "../Buttons/ImageButton";
 
 export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
     const { dispatch } = useBoard();
@@ -29,10 +31,18 @@ export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
             </hgroup>
 
             <div className="column">
-                <button onClick={handleAddCard}>Add Card</button>
-                {column.cards.map((card) => (
-                    <Card key={card.id} card={card} />
-                ))}
+                <div className="column__controls">
+                    <ImageButton
+                        icon={<SvgAdd />}
+                        additionalStyles="column__add-card"
+                        onClickFunction={handleAddCard}
+                    />
+                </div>
+                <div className="column__cards">
+                    {column.cards.map((card) => (
+                        <Card key={card.id} card={card} />
+                    ))}
+                </div>
             </div>
         </div>
     );

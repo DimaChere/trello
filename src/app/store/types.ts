@@ -3,6 +3,11 @@ export type State = {
     user: string | null;
 };
 
+export type CurrentCardPopupType = {
+    id: string;
+    columnId: number;
+};
+
 export enum ACTION_TYPES {
     ADD_USER = "ADD_USER",
     REMOVE_USER = "REMOVE_USER",
@@ -68,6 +73,9 @@ export type CommentType = {
 export type BoardContextType =
     | {
           state: State;
+          currentCardPopup: CurrentCardPopupType | null;
           dispatch: React.Dispatch<Action>;
+          openCardPopup: (currentCardPopUp: CurrentCardPopupType) => void;
+          closeCardPopup: () => void;
       }
     | undefined;

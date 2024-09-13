@@ -1,14 +1,14 @@
 import "./App.sass";
-import { Columns } from "./components/Board/Columns";
-import { PopUp } from "./components/PopUp/PopUp";
+import { Board } from "./components/Board/Board";
+import { LoginPopUp } from "./components/LoginPopUp/LoginPopUp";
 import { BoardProvider } from "./app/providers/BoardProvirder";
 
 const App: React.FC = () => {
     return (
         <main className="app">
             <BoardProvider>
-                <PopUp />
-                <Columns />
+                <LoginPopUp />
+                <Board />
             </BoardProvider>
         </main>
     );
