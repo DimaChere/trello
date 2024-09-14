@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ACTION_TYPES, CardType } from "../app/store/types";
-import { useBoard } from "./useBoard";
+import { CardType } from "../app/store/types";
+import { useDispatch } from "react-redux";
+import { editCard } from "../app/store/features/boardSlice";
 
 export const useCardNameChange = (card: CardType) => {
-    const { dispatch } = useBoard();
+    const dispatch = useDispatch();
     const [isNameChanging, setIsNameChanging] = useState(false);
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [newTitle, setNewTitle] = useState(card.title);
@@ -21,14 +22,13 @@ export const useCardNameChange = (card: CardType) => {
 
     const handleNameChange = (e: React.KeyboardEvent) => {
         if (e.key === "Enter") {
-            dispatch({
-                type: ACTION_TYPES.EDIT_CARD,
-                payload: {
+            dispatch(
+                editCard({
                     columnId: card.columnId,
                     cardId: card.id,
                     updates: { title: newTitle },
-                },
-            });
+                })
+            );
             setIsNameChanging(false);
         }
     };
@@ -39,14 +39,13 @@ export const useCardNameChange = (card: CardType) => {
                 inputRef.current &&
                 !inputRef.current.contains(e.target as Node)
             ) {
-                dispatch({
-                    type: ACTION_TYPES.EDIT_CARD,
-                    payload: {
+                dispatch(
+                    editCard({
                         columnId: card.columnId,
                         cardId: card.id,
                         updates: { title: newTitle },
-                    },
-                });
+                    })
+                );
                 setIsNameChanging(false);
             }
         },

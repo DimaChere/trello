@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { useBoard } from "./useBoard";
-import { ACTION_TYPES, CardType } from "../app/store/types";
+import { CardType } from "../app/store/types";
 import { v4 as uuidv4 } from "uuid";
+import { useDispatch, useSelector } from "react-redux";
+import { addComment } from "../app/store/features/boardSlice";
+import { RootState } from "../app/store/store";
 
 export const useCardSendComment = (card: CardType) => {
-    const { state, dispatch } = useBoard();
+    const user = useSelector((state: RootState) => state.board.user);
+    const dispatch = useDispatch();
     const inputRef = useRef<HTMLTextAreaElement | null>(null);
     const [newComment, setNewComment] = useState("");
 
@@ -16,17 +19,16 @@ export const useCardSendComment = (card: CardType) => {
     };
 
     const handleCommentSubmit = () => {
-        dispatch({
-            type: ACTION_TYPES.ADD_COMMENT,
-            payload: {
+        dispatch(
+            addComment({
                 cardId: card.id,
                 comment: {
                     id: uuidv4(),
-                    author: state.user || "anonymous",
+                    author: user || "anonymous",
                     text: newComment.trim(),
                 },
-            },
-        });
+            })
+        );
 
         setNewComment("");
         if (inputRef.current) {

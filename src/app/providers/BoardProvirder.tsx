@@ -1,25 +1,8 @@
-import { PropsWithChildren, useReducer, useState } from "react";
-import { CurrentCardPopupType, State } from "../store/types";
-import { reducerWithStorage } from "../store/reducer";
-import { BoardContext } from "../store/BoardContext";
+import { PropsWithChildren, useState } from "react";
+import { CurrentCardPopupType } from "../store/types";
+import { CardContext } from "../store/CardContext";
 
 export const BoardProvider: React.FC<PropsWithChildren> = ({ children }) => {
-    const savedState: string | null = localStorage.getItem("appState");
-
-    const initialState: State = savedState
-        ? JSON.parse(savedState)
-        : {
-              columns: [
-                  { id: 1, title: "TODO", cards: [] },
-                  { id: 2, title: "In Progress", cards: [] },
-                  { id: 3, title: "Testing", cards: [] },
-                  { id: 4, title: "Done", cards: [] },
-              ],
-              user: "",
-          };
-
-    const [state, dispatch] = useReducer(reducerWithStorage, initialState);
-
     const [currentCardPopup, setCurrentCardPopup] =
         useState<CurrentCardPopupType | null>(null);
 
@@ -32,16 +15,14 @@ export const BoardProvider: React.FC<PropsWithChildren> = ({ children }) => {
     };
 
     return (
-        <BoardContext.Provider
+        <CardContext.Provider
             value={{
-                state,
                 currentCardPopup,
-                dispatch,
                 openCardPopup,
                 closeCardPopup,
             }}
         >
             {children}
-        </BoardContext.Provider>
+        </CardContext.Provider>
     );
 };

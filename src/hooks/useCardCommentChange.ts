@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { ACTION_TYPES, CardType, CommentType } from "../app/store/types";
-import { useBoard } from "./useBoard";
+import { CardType, CommentType } from "../app/store/types";
+import { useDispatch } from "react-redux";
+import { editCard } from "../app/store/features/boardSlice";
 
 export const useCardCommentChange = (comment: CommentType, card: CardType) => {
-    const { dispatch } = useBoard();
+    const dispatch = useDispatch();
     const [isCommentChanging, setIsCommentChanging] = useState(false);
     const [newComment, setNewComment] = useState(comment.text);
     const inputRef = useRef<HTMLTextAreaElement | null>(null);
@@ -40,14 +41,13 @@ export const useCardCommentChange = (comment: CommentType, card: CardType) => {
         const newComments = [...card.comments];
         newComments[newComments.indexOf(comment)] = changedComment;
 
-        dispatch({
-            type: ACTION_TYPES.EDIT_CARD,
-            payload: {
+        dispatch(
+            editCard({
                 columnId: card.columnId,
                 cardId: card.id,
                 updates: { comments: newComments },
-            },
-        });
+            })
+        );
         setIsCommentChanging(false);
     };
 
@@ -56,14 +56,13 @@ export const useCardCommentChange = (comment: CommentType, card: CardType) => {
             (newComment) => newComment.id !== comment.id
         );
 
-        dispatch({
-            type: ACTION_TYPES.EDIT_CARD,
-            payload: {
+        dispatch(
+            editCard({
                 columnId: card.columnId,
                 cardId: card.id,
                 updates: { comments: newComments },
-            },
-        });
+            })
+        );
         setIsCommentChanging(false);
     };
 

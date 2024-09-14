@@ -1,13 +1,14 @@
-import { useBoard } from "../../hooks/useBoard";
-import { ACTION_TYPES, CardType, ColumnType } from "../../app/store/types";
+import { CardType, ColumnType } from "../../app/store/types";
 import { Card } from "../Card/Card";
 import "./Column.style.sass";
 import { v4 as uuidv4 } from "uuid";
 import SvgAdd from "../../icons/components/Add";
 import { ImageButton } from "../Buttons/ImageButton";
+import { useDispatch } from "react-redux";
+import { addCard } from "../../app/store/features/boardSlice";
 
 export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
-    const { dispatch } = useBoard();
+    const dispatch = useDispatch();
 
     const handleAddCard = () => {
         const newCard: CardType = {
@@ -18,10 +19,7 @@ export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
             comments: [],
         };
 
-        dispatch({
-            type: ACTION_TYPES.ADD_CARD,
-            payload: { columnId: column.id, card: newCard },
-        });
+        dispatch(addCard({ columnId: column.id, card: newCard }));
     };
 
     return (

@@ -1,19 +1,21 @@
 import { useState } from "react";
 import "./LoginPopUp.style.sass";
-import { useBoard } from "../../hooks/useBoard";
-import { ACTION_TYPES } from "../../app/store/types";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../../app/store/features/boardSlice";
+import { RootState } from "../../app/store/store";
 
 export const LoginPopUp: React.FC = () => {
     const [userName, setUserName] = useState<string>("");
     const [isRegisterSuccess, setIsRegisterSuccess] = useState<boolean>(false);
-    const { state, dispatch } = useBoard();
+    const dispatch = useDispatch();
+    const user = useSelector((state: RootState) => state.board.user);
 
-    if (state.user) {
+    if (user) {
         return null;
     }
 
     const handleUserRegister = () => {
-        dispatch({ type: ACTION_TYPES.ADD_USER, payload: { userName } });
+        dispatch(addUser({ userName }));
         setIsRegisterSuccess(true);
         setUserName("");
     };

@@ -11,15 +11,18 @@ import { CardPopUpHeader } from "../CardPopUpHeader/CardPopUpHeader";
 import "./CardPopUp.style.sass";
 import SvgClose from "../../icons/components/Close";
 import { ImageButton } from "../Buttons/ImageButton";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store/store";
 
 export const CardPopUp: React.FC<{ cardInfo: CurrentCardPopupType }> = ({
     cardInfo,
 }) => {
-    const { state, closeCardPopup } = useBoard();
+    const columns = useSelector((state: RootState) => state.board.columns);
+    const { closeCardPopup } = useBoard();
     const [currentCard, setCurrentCard] = useState<CardType>();
 
     useEffect(() => {
-        const column: ColumnType | undefined = state.columns.find(
+        const column: ColumnType | undefined = columns.find(
             (element) => element.id === cardInfo.columnId
         );
         const card: CardType | undefined = column?.cards?.find(
@@ -29,7 +32,7 @@ export const CardPopUp: React.FC<{ cardInfo: CurrentCardPopupType }> = ({
         if (card) {
             setCurrentCard(card);
         }
-    }, [state.columns, cardInfo]);
+    }, [columns, cardInfo]);
 
     const handleClosePopUp = () => {
         closeCardPopup();
