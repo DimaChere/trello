@@ -1,10 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CardType, CommentType, State } from "../types";
 
+type AddUserPayload = { userName: string };
+type AddCardPayload = { columnId: number; card: CardType };
+type RemoveCardPayload = { columnId: number; cardId: string };
+type EditCardPayload = {
+    columnId: number;
+    cardId: string;
+    updates: Partial<CardType>;
+};
+type AddCommentPayload = { cardId: string; comment: CommentType };
+
 const savedState: string | null = localStorage.getItem("appState");
 
 const initialState: State = savedState
-    ? JSON.parse(savedState)
+    ? (JSON.parse(savedState) as State)
     : {
           columns: [
               { id: 1, title: "TODO", cards: [] },
@@ -19,16 +29,13 @@ const boardSlice = createSlice({
     name: "board",
     initialState,
     reducers: {
-        addUser: (state, action: PayloadAction<{ userName: string }>) => {
+        addUser: (state, action: PayloadAction<AddUserPayload>) => {
             state.user = action.payload.userName;
         },
         removeUser: (state) => {
             state.user = null;
         },
-        addCard: (
-            state,
-            action: PayloadAction<{ columnId: number; card: CardType }>
-        ) => {
+        addCard: (state, action: PayloadAction<AddCardPayload>) => {
             const column = state.columns.find(
                 (col) => col.id === action.payload.columnId
             );
@@ -36,10 +43,7 @@ const boardSlice = createSlice({
                 column.cards.push(action.payload.card);
             }
         },
-        removeCard: (
-            state,
-            action: PayloadAction<{ columnId: number; cardId: string }>
-        ) => {
+        removeCard: (state, action: PayloadAction<RemoveCardPayload>) => {
             const column = state.columns.find(
                 (col) => col.id === action.payload.columnId
             );
@@ -49,14 +53,7 @@ const boardSlice = createSlice({
                 );
             }
         },
-        editCard: (
-            state,
-            action: PayloadAction<{
-                columnId: number;
-                cardId: string;
-                updates: Partial<CardType>;
-            }>
-        ) => {
+        editCard: (state, action: PayloadAction<EditCardPayload>) => {
             const column = state.columns.find(
                 (col) => col.id === action.payload.columnId
             );
@@ -69,10 +66,7 @@ const boardSlice = createSlice({
                 }
             }
         },
-        addComment: (
-            state,
-            action: PayloadAction<{ cardId: string; comment: CommentType }>
-        ) => {
+        addComment: (state, action: PayloadAction<AddCommentPayload>) => {
             for (const column of state.columns) {
                 const card = column.cards.find(
                     (card) => card.id === action.payload.cardId
@@ -94,4 +88,5 @@ export const {
     editCard,
     addComment,
 } = boardSlice.actions;
+
 export default boardSlice.reducer;
