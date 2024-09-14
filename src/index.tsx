@@ -6,6 +6,11 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "./app/store/store";
 
+store.subscribe(() => {
+    const state = store.getState().board;
+    localStorage.setItem("appState", JSON.stringify(state));
+});
+
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
 );
