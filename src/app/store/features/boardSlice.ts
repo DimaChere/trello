@@ -11,19 +11,15 @@ type EditCardPayload = {
 };
 type AddCommentPayload = { cardId: string; comment: CommentType };
 
-const savedState: string | null = localStorage.getItem("appState");
-
-const initialState: State = savedState
-    ? (JSON.parse(savedState) as State)
-    : {
-          columns: [
-              { id: 1, title: "TODO", cards: [] },
-              { id: 2, title: "In Progress", cards: [] },
-              { id: 3, title: "Testing", cards: [] },
-              { id: 4, title: "Done", cards: [] },
-          ],
-          user: "",
-      };
+const initialState: State = {
+    columns: [
+        { id: 1, title: "TODO", cards: [] },
+        { id: 2, title: "In Progress", cards: [] },
+        { id: 3, title: "Testing", cards: [] },
+        { id: 4, title: "Done", cards: [] },
+    ],
+    user: "",
+};
 
 const boardSlice = createSlice({
     name: "board",

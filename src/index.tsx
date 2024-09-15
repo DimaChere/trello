@@ -4,12 +4,8 @@ import "./index.sass";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import store from "./app/store/store";
-
-store.subscribe(() => {
-    const state = store.getState().board;
-    localStorage.setItem("appState", JSON.stringify(state));
-});
+import store, { persistor } from "./app/store/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
@@ -17,7 +13,9 @@ const root = ReactDOM.createRoot(
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-            <App />
+            <PersistGate loading={null} persistor={persistor}>
+                <App />
+            </PersistGate>
         </Provider>
     </React.StrictMode>
 );
