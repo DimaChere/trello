@@ -1,11 +1,11 @@
-import { useSelector } from "react-redux";
 import { ColumnType } from "../../app/store/types";
 import { Column } from "../Column/Column";
 import "./Board.style.sass";
-import { RootState } from "../../app/store/store";
+import { useAppSelector } from "../../app/store/store";
+import { selectAllColumns } from "../../app/store/column/selectors";
 
 export const Board: React.FC = () => {
-    const columns = useSelector((state: RootState) => state.board.columns);
+    const columns = useAppSelector(selectAllColumns);
     if (!columns) {
         return <div>Loading...</div>;
     }

@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { CardType } from "../app/store/types";
-import { useDispatch } from "react-redux";
-import { editCard } from "../app/store/features/boardSlice";
+import { editCard } from "../app/store/card/card-slice";
+import { useAppDispatch } from "../app/store/store";
 
 export const useCardDescriptionChange = (card: CardType) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [isDescriptionChanging, setIsDescriptionChanging] = useState(false);
     const inputRef = useRef<HTMLTextAreaElement | null>(null);
     const [newDescription, setNewDescription] = useState(

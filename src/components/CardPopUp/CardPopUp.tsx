@@ -10,14 +10,14 @@ import { CardPopUpHeader } from "../CardPopUpHeader/CardPopUpHeader";
 import "./CardPopUp.style.sass";
 import SvgClose from "../../icons/components/Close";
 import { ImageButton } from "../Buttons/ImageButton";
-import { useSelector } from "react-redux";
-import { RootState } from "../../app/store/store";
+import { useAppSelector } from "../../app/store/store";
+import { selectAllColumns } from "../../app/store/column/selectors";
 
 export const CardPopUp: React.FC<{
     cardInfo: CurrentCardPopupType;
     handleClosePopUp: () => void;
 }> = ({ cardInfo, handleClosePopUp }) => {
-    const columns = useSelector((state: RootState) => state.board.columns);
+    const columns = useAppSelector(selectAllColumns);
     const [currentCard, setCurrentCard] = useState<CardType>();
 
     useEffect(() => {

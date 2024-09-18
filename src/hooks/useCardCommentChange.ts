@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { CardType, CommentType } from "../app/store/types";
-import { useDispatch } from "react-redux";
-import { editCard } from "../app/store/features/boardSlice";
+import { editCard } from "../app/store/card/card-slice";
+import { useAppDispatch } from "../app/store/store";
 
 export const useCardCommentChange = (comment: CommentType, card: CardType) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [isCommentChanging, setIsCommentChanging] = useState(false);
     const [newComment, setNewComment] = useState(comment.text);
     const inputRef = useRef<HTMLTextAreaElement | null>(null);

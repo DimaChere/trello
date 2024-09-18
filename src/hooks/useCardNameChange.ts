@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CardType } from "../app/store/types";
-import { useDispatch } from "react-redux";
-import { editCard } from "../app/store/features/boardSlice";
+import { editCard } from "../app/store/card/card-slice";
+import { useAppDispatch } from "../app/store/store";
 
 export const useCardNameChange = (card: CardType) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [isNameChanging, setIsNameChanging] = useState(false);
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [newTitle, setNewTitle] = useState(card.title);

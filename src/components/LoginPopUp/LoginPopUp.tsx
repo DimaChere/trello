@@ -1,21 +1,21 @@
 import { useState } from "react";
 import "./LoginPopUp.style.sass";
-import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../../app/store/features/boardSlice";
-import { RootState } from "../../app/store/store";
+import { useAppDispatch, useAppSelector } from "../../app/store/store";
+import { addUser } from "../../app/store/user/user-slice";
+import { selectUser } from "../../app/store/user/selectors";
 
 export const LoginPopUp: React.FC = () => {
     const [userName, setUserName] = useState<string>("");
     const [isRegisterSuccess, setIsRegisterSuccess] = useState<boolean>(false);
-    const dispatch = useDispatch();
-    const user = useSelector((state: RootState) => state.board.user);
+    const dispatch = useAppDispatch();
+    const user = useAppSelector(selectUser);
 
     if (user) {
         return null;
     }
 
     const handleUserRegister = () => {
-        dispatch(addUser({ userName }));
+        dispatch(addUser({ name: userName }));
         setIsRegisterSuccess(true);
         setUserName("");
     };

@@ -4,11 +4,11 @@ import "./Column.style.sass";
 import { v4 as uuidv4 } from "uuid";
 import SvgAdd from "../../icons/components/Add";
 import { ImageButton } from "../Buttons/ImageButton";
-import { useDispatch } from "react-redux";
-import { addCard } from "../../app/store/features/boardSlice";
+import { addCard } from "../../app/store/card/card-slice";
+import { useAppDispatch } from "../../app/store/store";
 
 export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const handleAddCard = () => {
         const newCard: CardType = {
