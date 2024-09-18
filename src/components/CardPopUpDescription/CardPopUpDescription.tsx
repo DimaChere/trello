@@ -34,6 +34,7 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
                         <>
                             <textarea
                                 className="card-description__textarea card-description__text"
+                                name="card-description"
                                 ref={inputRef}
                                 value={newDescription}
                                 onChange={(e) => {

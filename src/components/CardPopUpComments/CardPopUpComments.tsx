@@ -19,6 +19,7 @@ export const CardPopUpComments: React.FC<{ card: CardType }> = ({ card }) => {
             <div className="card-comments__send-comment">
                 <textarea
                     className="card-comments__textarea"
+                    name="card-comment"
                     ref={inputRef}
                     onChange={(e) => setNewComment(e.target.value)}
                 />
