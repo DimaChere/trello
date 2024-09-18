@@ -1,8 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit";
-import cardReducer from "./card/card-slice";
-import columnReducer from "./column/column-slice";
-import commentReducer from "./comment/comment-slice";
-import userReducer from "./user/user-slice"; // Импортируем редьюсер пользователя
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import cardSlice from "./card/card-slice";
+import columnSlice from "./column/column-slice";
+import commentSlice from "./comment/comment-slice";
+import userSlice from "./user/user-slice"; // Импортируем редьюсер пользователя
 import storage from "redux-persist/lib/storage"; // Импортируем хранилище
 import { persistReducer, persistStore } from "redux-persist"; // Импортируем библиотеку для сохранения
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
@@ -12,18 +12,17 @@ const persistConfig = {
     storage,
 };
 
-const cardPersistedReducer = persistReducer(persistConfig, cardReducer);
-const columnPersistedReducer = persistReducer(persistConfig, columnReducer);
-const commentPersistedReducer = persistReducer(persistConfig, commentReducer);
-const userPersistedReducer = persistReducer(persistConfig, userReducer);
+const boardReducer = combineReducers({
+    user: userSlice,
+    column: columnSlice,
+    cards: cardSlice,
+    comments: commentSlice,
+});
+
+const persistedReducer = persistReducer(persistConfig, boardReducer);
 
 const store = configureStore({
-    reducer: {
-        card: cardPersistedReducer,
-        column: columnPersistedReducer,
-        comment: commentPersistedReducer,
-        user: userPersistedReducer,
-    },
+    reducer: persistedReducer,
 });
 
 export type RootState = ReturnType<typeof store.getState>;

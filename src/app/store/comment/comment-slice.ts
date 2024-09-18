@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { CommentType } from "./types";
 
 const initialState: { comments: CommentType[] } = {
@@ -10,7 +10,5 @@ const commentSlice = createSlice({
     initialState,
     reducers: {},
 });
-
-export const {} = commentSlice.actions;
 
 export default commentSlice.reducer;

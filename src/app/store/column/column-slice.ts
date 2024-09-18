@@ -16,6 +16,4 @@ const columnSlice = createSlice({
     reducers: {},
 });
 
-export const {} = columnSlice.actions;
-
 export default columnSlice.reducer;
