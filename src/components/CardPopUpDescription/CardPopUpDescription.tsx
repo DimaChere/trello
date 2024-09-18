@@ -29,7 +29,7 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
         <div className="card-description">
             <div className="card-description__content">
                 <p className="card-description__header">Описание</p>
-                <p className="card-description__description">
+                <div className="card-description__description">
                     {isDescriptionChanging && (
                         <>
                             <textarea
@@ -57,7 +57,7 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
                             Описание отсутствует
                         </p>
                     )}
-                </p>
+                </div>
             </div>
             <div className="card-description__edit">
                 {isEmptyDescription && (
