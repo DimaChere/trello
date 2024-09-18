@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { CurrentCardPopupType } from "../../app/store/types";
 import { CardPopUpComments } from "../CardPopUpComments/CardPopUpComments";
 import { CardPopUpDescription } from "../CardPopUpDescription/CardPopUpDescription";
@@ -7,29 +6,32 @@ import "./CardPopUp.style.sass";
 import SvgClose from "../../icons/components/Close";
 import { ImageButton } from "../Buttons/ImageButton";
 import { useAppSelector } from "../../app/store/store";
-import { selectAllColumns } from "../../app/store/column/selectors";
-import { ColumnType } from "../../app/store/column/types";
-import { CardType } from "../../app/store/card/types";
+import { selectCardById } from "../../app/store/card/selectors";
+import { useEffect } from "react";
 
 export const CardPopUp: React.FC<{
     cardInfo: CurrentCardPopupType;
     handleClosePopUp: () => void;
 }> = ({ cardInfo, handleClosePopUp }) => {
-    const columns = useAppSelector(selectAllColumns);
-    const [currentCard, setCurrentCard] = useState<CardType>();
+    const cardPopUp = useAppSelector((state) =>
+        selectCardById(state, cardInfo.id)
+    );
 
     useEffect(() => {
-        const column: ColumnType | undefined = columns.find(
-            (element) => element.id === cardInfo.columnId
-        );
-        const card: CardType | undefined = column?.cards?.find(
-            (card) => card.id === cardInfo.id
-        );
+        const keyDownAction = (e: KeyboardEvent) => {
+            if (e.key === "Escape") {
+                handleClosePopUp();
+            }
+        };
+        document.addEventListener("keydown", keyDownAction);
+        return () => {
+            document.removeEventListener("keydown", keyDownAction);
+        };
+    }, [handleClosePopUp]);
 
-        if (card) {
-            setCurrentCard(card);
-        }
-    }, [columns, cardInfo]);
+    if (!cardPopUp) {
+        return null;
+    }
 
     return (
         <div className="card-pop-up-background">
@@ -39,11 +41,11 @@ export const CardPopUp: React.FC<{
                     additionalStyles="card-pop-up__close"
                     onClickFunction={handleClosePopUp}
                 />
-                {currentCard && (
+                {cardPopUp && (
                     <>
-                        <CardPopUpHeader card={currentCard} />
-                        <CardPopUpDescription card={currentCard} />
-                        <CardPopUpComments card={currentCard} />
+                        <CardPopUpHeader card={cardPopUp} />
+                        <CardPopUpDescription card={cardPopUp} />
+                        <CardPopUpComments card={cardPopUp} />
                     </>
                 )}
             </div>
