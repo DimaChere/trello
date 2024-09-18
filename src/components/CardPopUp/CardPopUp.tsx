@@ -4,7 +4,6 @@ import {
     ColumnType,
     CurrentCardPopupType,
 } from "../../app/store/types";
-import { useBoard } from "../../hooks/useBoard";
 import { CardPopUpComments } from "../CardPopUpComments/CardPopUpComments";
 import { CardPopUpDescription } from "../CardPopUpDescription/CardPopUpDescription";
 import { CardPopUpHeader } from "../CardPopUpHeader/CardPopUpHeader";
@@ -14,11 +13,11 @@ import { ImageButton } from "../Buttons/ImageButton";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store/store";
 
-export const CardPopUp: React.FC<{ cardInfo: CurrentCardPopupType }> = ({
-    cardInfo,
-}) => {
+export const CardPopUp: React.FC<{
+    cardInfo: CurrentCardPopupType;
+    handleClosePopUp: () => void;
+}> = ({ cardInfo, handleClosePopUp }) => {
     const columns = useSelector((state: RootState) => state.board.columns);
-    const { closeCardPopup } = useBoard();
     const [currentCard, setCurrentCard] = useState<CardType>();
 
     useEffect(() => {
@@ -33,10 +32,6 @@ export const CardPopUp: React.FC<{ cardInfo: CurrentCardPopupType }> = ({
             setCurrentCard(card);
         }
     }, [columns, cardInfo]);
-
-    const handleClosePopUp = () => {
-        closeCardPopup();
-    };
 
     return (
         <div className="card-pop-up-background">

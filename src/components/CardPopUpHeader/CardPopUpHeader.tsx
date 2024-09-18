@@ -1,5 +1,4 @@
 import { CardType } from "../../app/store/types";
-import { useBoard } from "../../hooks/useBoard";
 import { useCardNameChange } from "../../hooks/useCardNameChange";
 import SvgDelete from "../../icons/components/Delete";
 import SvgEdit from "../../icons/components/Edit";
@@ -14,7 +13,6 @@ export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
     const user = state.user;
     const columns = state.columns;
     const dispatch = useDispatch();
-    const { closeCardPopup } = useBoard();
 
     const {
         isNameChanging,
@@ -27,7 +25,6 @@ export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
 
     const handlePopUpDelete = () => {
         dispatch(removeCard({ cardId: card.id, columnId: card.columnId }));
-        closeCardPopup();
     };
 
     const userName = user;
