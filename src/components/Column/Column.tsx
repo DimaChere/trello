@@ -4,9 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 import SvgAdd from "../../icons/components/Add";
 import { ImageButton } from "../Buttons/ImageButton";
 import { addCard } from "../../app/store/card/card-slice";
-import { useAppDispatch } from "../../app/store/store";
+import { useAppDispatch, useAppSelector } from "../../app/store/store";
 import { ColumnType } from "../../app/store/column/types";
 import { CardType } from "../../app/store/card/types";
+import { selectCardsFromColumnId } from "../../app/store/card/selectors";
 
 export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
     const dispatch = useAppDispatch();
@@ -23,6 +24,10 @@ export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
         dispatch(addCard({ columnId: column.id, card: newCard }));
     };
 
+    const cards = useAppSelector((state) =>
+        selectCardsFromColumnId(state, column.id)
+    );
+
     return (
         <div>
             <hgroup>
@@ -38,7 +43,7 @@ export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
                     />
                 </div>
                 <div className="column__cards">
-                    {column.cards.map((card) => (
+                    {cards.map((card) => (
                         <Card key={card.id} card={card} />
                     ))}
                 </div>
