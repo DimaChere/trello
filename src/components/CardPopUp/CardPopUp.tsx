@@ -23,6 +23,7 @@ export const CardPopUp: React.FC<{
                 handleClosePopUp();
             }
         };
+
         document.addEventListener("keydown", keyDownAction);
         return () => {
             document.removeEventListener("keydown", keyDownAction);
