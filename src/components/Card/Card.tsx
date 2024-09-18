@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { CardType, CurrentCardPopupType } from "../../app/store/types";
+import { CurrentCardPopupType } from "../../app/store/types";
 import { useCardNameChange } from "../../hooks/useCardNameChange";
 import SvgChat from "../../icons/components/Chat";
 import SvgEdit from "../../icons/components/Edit";
 import { ImageButton } from "../Buttons/ImageButton";
 import "./Card.style.sass";
 import { CardPopUp } from "../CardPopUp/CardPopUp";
+import { CardType } from "../../app/store/card/types";
 
 export const Card: React.FC<{ card: CardType }> = ({ card }) => {
     const [currentCardPopup, setCurrentCardPopup] =
