@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { CardType } from "../app/store/types";
 import { editCard } from "../app/store/card/card-slice";
 import { useAppDispatch } from "../app/store/store";
+import { CardType } from "../app/store/card/types";
 
 export const useCardDescriptionChange = (card: CardType) => {
     const dispatch = useAppDispatch();

@@ -1,4 +1,3 @@
-import { CardType } from "../../app/store/types";
 import { useCardNameChange } from "../../hooks/useCardNameChange";
 import SvgDelete from "../../icons/components/Delete";
 import SvgEdit from "../../icons/components/Edit";
@@ -8,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../app/store/store";
 import { removeCard } from "../../app/store/card/card-slice";
 import { selectUser } from "../../app/store/user/selectors";
 import { selectAllColumns } from "../../app/store/column/selectors";
+import { CardType } from "../../app/store/card/types";
 
 export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
     const user = useAppSelector(selectUser);

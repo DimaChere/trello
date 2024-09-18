@@ -1,4 +1,4 @@
-import { CardType } from "../../app/store/types";
+import { CardType } from "../../app/store/card/types";
 import { useCardSendComment } from "../../hooks/useCardSendComment";
 import SvgSend from "../../icons/components/Send";
 import { ImageButton } from "../Buttons/ImageButton";

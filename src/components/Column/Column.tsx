@@ -1,4 +1,3 @@
-import { CardType, ColumnType } from "../../app/store/types";
 import { Card } from "../Card/Card";
 import "./Column.style.sass";
 import { v4 as uuidv4 } from "uuid";
@@ -6,6 +5,8 @@ import SvgAdd from "../../icons/components/Add";
 import { ImageButton } from "../Buttons/ImageButton";
 import { addCard } from "../../app/store/card/card-slice";
 import { useAppDispatch } from "../../app/store/store";
+import { ColumnType } from "../../app/store/column/types";
+import { CardType } from "../../app/store/card/types";
 
 export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
     const dispatch = useAppDispatch();

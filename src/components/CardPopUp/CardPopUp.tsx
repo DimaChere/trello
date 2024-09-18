@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-    CardType,
-    ColumnType,
-    CurrentCardPopupType,
-} from "../../app/store/types";
+import { CurrentCardPopupType } from "../../app/store/types";
 import { CardPopUpComments } from "../CardPopUpComments/CardPopUpComments";
 import { CardPopUpDescription } from "../CardPopUpDescription/CardPopUpDescription";
 import { CardPopUpHeader } from "../CardPopUpHeader/CardPopUpHeader";
@@ -12,6 +8,8 @@ import SvgClose from "../../icons/components/Close";
 import { ImageButton } from "../Buttons/ImageButton";
 import { useAppSelector } from "../../app/store/store";
 import { selectAllColumns } from "../../app/store/column/selectors";
+import { ColumnType } from "../../app/store/column/types";
+import { CardType } from "../../app/store/card/types";
 
 export const CardPopUp: React.FC<{
     cardInfo: CurrentCardPopupType;

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { CardType } from "../app/store/types";
 import { v4 as uuidv4 } from "uuid";
 import { useAppDispatch, useAppSelector } from "../app/store/store";
 import { addComment } from "../app/store/card/card-slice";
 import { selectUser } from "../app/store/user/selectors";
+import { CardType } from "../app/store/card/types";
 
 export const useCardSendComment = (card: CardType) => {
     const user = useAppSelector(selectUser);
