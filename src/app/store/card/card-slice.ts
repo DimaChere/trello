@@ -10,10 +10,7 @@ type EditCardPayload = {
 };
 type AddCommentPayload = { cardId: string; comment: CommentType };
 
-const initialState: { cards: CardType[] } = {
-    cards: [],
-};
-
+const initialState: CardType[] = [];
 const cardSlice = createSlice({
     name: "card",
     initialState,
@@ -21,17 +18,17 @@ const cardSlice = createSlice({
         addCard: (state, action: PayloadAction<AddCardPayload>) => {
             const { card } = action.payload;
 
-            state.cards.push(card);
+            state.push(card);
         },
         removeCard: (state, action: PayloadAction<RemoveCardPayload>) => {
             const { cardId } = action.payload;
 
-            state.cards = state.cards.filter((card) => card.id !== cardId);
+            state = state.filter((card) => card.id !== cardId);
         },
         editCard: (state, action: PayloadAction<EditCardPayload>) => {
             const { cardId, updates } = action.payload;
 
-            const card = state.cards.find((card) => card.id === cardId);
+            const card = state.find((card) => card.id === cardId);
             if (card) {
                 Object.assign(card, updates);
             }
@@ -39,7 +36,7 @@ const cardSlice = createSlice({
         addComment: (state, action: PayloadAction<AddCommentPayload>) => {
             const { cardId, comment } = action.payload;
 
-            const card = state.cards.find((card) => card.id === cardId);
+            const card = state.find((card) => card.id === cardId);
             if (card) {
                 card.comments.push(comment);
             }

@@ -1,10 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { CommentType } from "./types";
 
-const initialState: { comments: CommentType[] } = {
-    comments: [],
-};
-
+const initialState: CommentType[] = [];
 const commentSlice = createSlice({
     name: "comment",
     initialState,

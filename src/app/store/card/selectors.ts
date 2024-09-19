@@ -2,8 +2,7 @@ import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { CardType } from "./types";
 
-export const selectAllCards = (state: RootState): CardType[] =>
-    state.cards.cards;
+export const selectAllCards = (state: RootState): CardType[] => state.cards;
 
 export const selectCardsFromColumnId = createSelector(
     [selectAllCards, (state: RootState, columnId: number) => columnId],
