@@ -9,20 +9,6 @@ export const selectors = {
         selectCardById: card.selectCardById,
         selectCardsFromColumnId: card.selectCardsFromColumnId,
     },
-    column: {},
-    comment: {},
-    user: {
-        addUser: user.addUser,
-        removeUser: user.removeUser,
-    },
-};
-
-export const actions = {
-    card: {
-        addCard: card.addCard,
-        removeCard: card.removeCard,
-        editCard: card.editCard,
-    },
     column: {
         selectAllColumns: column.selectAllColumns,
         selectColumnById: column.selectColumnById,
@@ -32,5 +18,19 @@ export const actions = {
     },
     user: {
         selectUser: user.selectUser,
+    },
+};
+
+export const actions = {
+    card: {
+        addCard: card.addCard,
+        removeCard: card.removeCard,
+        editCard: card.editCard,
+    },
+    column: {},
+    comment: {},
+    user: {
+        addUser: user.addUser,
+        removeUser: user.removeUser,
     },
 };
