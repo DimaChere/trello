@@ -13,9 +13,9 @@ export const Board: React.FC = () => {
     return (
         <>
             <div className="board">
-                {columns.map((column: ColumnType) => {
-                    return <Column key={column.id} column={column} />;
-                })}
+                {columns.map((column: ColumnType) => (
+                    <Column key={column.id} column={column} />
+                ))}
             </div>
         </>
     );
