@@ -5,6 +5,7 @@ import SvgSend from "../../icons/components/Send";
 import { CardPopUpComment } from "../CardPopUpComment/CardPopUpComment";
 import "./CardPopUpComments.style.sass";
 import { SubmitImageButton } from "../Buttons/SubmitImageButton";
+import { useEffect, useRef } from "react";
 
 interface CommentForm {
     comment: string;
@@ -13,12 +14,21 @@ interface CommentForm {
 export const CardPopUpComments: React.FC<{ card: CardType }> = ({ card }) => {
     const { handleCommentSubmit } = useCardSendComment(card);
 
-    const { register, handleSubmit, reset } = useForm<CommentForm>();
+    const { register, watch, handleSubmit, reset } = useForm<CommentForm>();
+    const commentRef = useRef<HTMLTextAreaElement | null>(null);
+    const watchComment = watch(["comment"]);
 
     const onSubmit = (data: CommentForm) => {
         handleCommentSubmit(data.comment);
         reset();
     };
+
+    useEffect(() => {
+        if (commentRef.current) {
+            commentRef.current.style.height = "auto";
+            commentRef.current.style.height = `${commentRef.current.scrollHeight}px`;
+        }
+    }, [watchComment]);
 
     const hasComments = card.comments.length > 0;
 
@@ -31,10 +41,13 @@ export const CardPopUpComments: React.FC<{ card: CardType }> = ({ card }) => {
                 className="card-comments__send-comment"
                 onSubmit={handleSubmit(onSubmit)}
             >
-                {/* TODO: изменение textarea при вводе*/}
                 <textarea
                     className="card-comments__textarea"
                     {...register("comment", { required: true })}
+                    ref={(e) => {
+                        commentRef.current = e;
+                        register("comment").ref(e);
+                    }}
                 />
                 <div>
                     <SubmitImageButton
