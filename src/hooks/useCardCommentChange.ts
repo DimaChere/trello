@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useAppDispatch } from "../app/store/store";
 import { CardType, CommentType } from "../app/store/card";
 import { actions } from "../app/store";
@@ -6,36 +6,15 @@ import { actions } from "../app/store";
 export const useCardCommentChange = (comment: CommentType, card: CardType) => {
     const dispatch = useAppDispatch();
     const [isCommentChanging, setIsCommentChanging] = useState(false);
-    const [newComment, setNewComment] = useState(comment.text);
-    const inputRef = useRef<HTMLTextAreaElement | null>(null);
-
-    const textareaResize = () => {
-        if (inputRef.current) {
-            inputRef.current.style.height = "auto";
-            inputRef.current.style.minHeight = `${inputRef.current.scrollHeight}px`;
-        }
-    };
 
     const handleOpenCommentEditor = (e: React.MouseEvent) => {
         setIsCommentChanging((prev) => !prev);
-        setNewComment((c) => c.trim());
     };
 
-    useEffect(() => {
-        if (isCommentChanging && inputRef.current) {
-            inputRef.current.focus();
-            textareaResize();
-        }
-    }, [isCommentChanging]);
-
-    useEffect(() => {
-        textareaResize();
-    }, [newComment]);
-
-    const handleCommentSubmit = () => {
+    const handleCommentSubmit = (commentText: string) => {
         const changedComment: CommentType = {
             ...comment,
-            text: newComment.trim(),
+            text: commentText.trim(),
         };
 
         const newComments = [...card.comments];
@@ -68,9 +47,6 @@ export const useCardCommentChange = (comment: CommentType, card: CardType) => {
 
     return {
         isCommentChanging,
-        newComment,
-        inputRef,
-        setNewComment,
         handleOpenCommentEditor,
         handleCommentSubmit,
         handleRemoveComment,

@@ -8,12 +8,16 @@
         font-weight: 600
     &__controls
         display: flex
-    &__textarea
+    &__form
+        display: flex
         flex: 1
+        flex-direction: column
+        width: 100%
+    &__textarea
         resize: none
-        overflow-y: hidden
+        overflow-y: scroll
         min-height: 50px
-        max-height: none
+        max-height: 150px
         border: 1px solid #999
         outline: 0
         font: inherit
