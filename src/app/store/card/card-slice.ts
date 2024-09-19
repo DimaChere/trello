@@ -19,27 +19,29 @@ const cardSlice = createSlice({
     initialState,
     reducers: {
         addCard: (state, action: PayloadAction<AddCardPayload>) => {
-            state.cards.push(action.payload.card);
+            const { card } = action.payload;
+
+            state.cards.push(card);
         },
         removeCard: (state, action: PayloadAction<RemoveCardPayload>) => {
-            state.cards = state.cards.filter(
-                (card) => card.id !== action.payload.cardId
-            );
+            const { cardId } = action.payload;
+
+            state.cards = state.cards.filter((card) => card.id !== cardId);
         },
         editCard: (state, action: PayloadAction<EditCardPayload>) => {
-            const card = state.cards.find(
-                (card) => card.id === action.payload.cardId
-            );
+            const { cardId, updates } = action.payload;
+
+            const card = state.cards.find((card) => card.id === cardId);
             if (card) {
-                Object.assign(card, action.payload.updates);
+                Object.assign(card, updates);
             }
         },
         addComment: (state, action: PayloadAction<AddCommentPayload>) => {
-            const card = state.cards.find(
-                (card) => card.id === action.payload.cardId
-            );
+            const { cardId, comment } = action.payload;
+
+            const card = state.cards.find((card) => card.id === cardId);
             if (card) {
-                card.comments.push(action.payload.comment);
+                card.comments.push(comment);
             }
         },
     },
