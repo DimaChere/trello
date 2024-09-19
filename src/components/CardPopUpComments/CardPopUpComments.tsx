@@ -1,13 +1,24 @@
+import { useForm } from "react-hook-form";
 import { CardType } from "../../app/store/card/types";
 import { useCardSendComment } from "../../hooks/useCardSendComment";
 import SvgSend from "../../icons/components/Send";
-import { ImageButton } from "../Buttons/ImageButton";
 import { CardPopUpComment } from "../CardPopUpComment/CardPopUpComment";
 import "./CardPopUpComments.style.sass";
+import { SubmitImageButton } from "../Buttons/SubmitImageButton";
+
+interface CommentForm {
+    comment: string;
+}
 
 export const CardPopUpComments: React.FC<{ card: CardType }> = ({ card }) => {
-    const { inputRef, setNewComment, handleCommentSubmit } =
-        useCardSendComment(card);
+    const { handleCommentSubmit } = useCardSendComment(card);
+
+    const { register, handleSubmit, reset } = useForm<CommentForm>();
+
+    const onSubmit = (data: CommentForm) => {
+        handleCommentSubmit(data.comment);
+        reset();
+    };
 
     const hasComments = card.comments.length > 0;
 
@@ -16,21 +27,22 @@ export const CardPopUpComments: React.FC<{ card: CardType }> = ({ card }) => {
     return (
         <div className="card-comments">
             <p className="card__comments-description">{commentsDescription}</p>
-            <div className="card-comments__send-comment">
+            <form
+                className="card-comments__send-comment"
+                onSubmit={handleSubmit(onSubmit)}
+            >
+                {/* TODO: изменение textarea при вводе*/}
                 <textarea
                     className="card-comments__textarea"
-                    name="card-comment"
-                    ref={inputRef}
-                    onChange={(e) => setNewComment(e.target.value)}
+                    {...register("comment", { required: true })}
                 />
                 <div>
-                    <ImageButton
+                    <SubmitImageButton
                         icon={<SvgSend />}
                         additionalStyles="card-comments__send-button"
-                        onClickFunction={handleCommentSubmit}
                     />
                 </div>
-            </div>
+            </form>
             <div className="card-comments__comments-block">
                 {hasComments &&
                     card.comments.map((comment) => (
