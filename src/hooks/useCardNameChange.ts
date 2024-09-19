@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { editCard } from "../app/store/card/card-slice";
 import { useAppDispatch } from "../app/store/store";
-import { CardType } from "../app/store/card/types";
+import { CardType } from "../app/store/card";
+import { actions } from "../app/store";
 
 export const useCardNameChange = (card: CardType) => {
     const dispatch = useAppDispatch();
@@ -23,7 +23,7 @@ export const useCardNameChange = (card: CardType) => {
     const handleNameChange = (e: React.KeyboardEvent) => {
         if (e.key === "Enter") {
             dispatch(
-                editCard({
+                actions.card.editCard({
                     columnId: card.columnId,
                     cardId: card.id,
                     updates: { title: newTitle },
@@ -40,7 +40,7 @@ export const useCardNameChange = (card: CardType) => {
                 !inputRef.current.contains(e.target as Node)
             ) {
                 dispatch(
-                    editCard({
+                    actions.card.editCard({
                         columnId: card.columnId,
                         cardId: card.id,
                         updates: { title: newTitle },

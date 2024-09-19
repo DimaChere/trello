@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { editCard } from "../app/store/card/card-slice";
 import { useAppDispatch } from "../app/store/store";
 import { CardType } from "../app/store/card/types";
+import { actions } from "../app/store";
 
 export const useCardDescriptionChange = (card: CardType) => {
     const dispatch = useAppDispatch();
@@ -36,7 +36,7 @@ export const useCardDescriptionChange = (card: CardType) => {
 
     const handleDescriptionSubmit = () => {
         dispatch(
-            editCard({
+            actions.card.editCard({
                 columnId: card.columnId,
                 cardId: card.id,
                 updates: { description: newDescription.trim() },
@@ -47,7 +47,7 @@ export const useCardDescriptionChange = (card: CardType) => {
 
     const handleDescriptionDelete = () => {
         dispatch(
-            editCard({
+            actions.card.editCard({
                 columnId: card.columnId,
                 cardId: card.id,
                 updates: { description: null },

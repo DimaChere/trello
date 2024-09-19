@@ -28,7 +28,9 @@ export const actions = {
         editCard: card.editCard,
     },
     column: {},
-    comment: {},
+    comment: {
+        addComment: card.addComment,
+    },
     user: {
         addUser: user.addUser,
         removeUser: user.removeUser,

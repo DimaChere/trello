@@ -6,15 +6,15 @@ import "./CardPopUp.style.sass";
 import SvgClose from "../../icons/components/Close";
 import { ImageButton } from "../Buttons/ImageButton";
 import { useAppSelector } from "../../app/store/store";
-import { selectCardById } from "../../app/store/card/selectors";
 import { useEffect } from "react";
+import { selectors } from "../../app/store";
 
 export const CardPopUp: React.FC<{
     cardInfo: CurrentCardPopupType;
     handleClosePopUp: () => void;
 }> = ({ cardInfo, handleClosePopUp }) => {
     const cardPopUp = useAppSelector((state) =>
-        selectCardById(state, cardInfo.id)
+        selectors.card.selectCardById(state, cardInfo.id)
     );
 
     useEffect(() => {

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { editCard } from "../app/store/card/card-slice";
 import { useAppDispatch } from "../app/store/store";
-import { CardType, CommentType } from "../app/store/card/types";
+import { CardType, CommentType } from "../app/store/card";
+import { actions } from "../app/store";
 
 export const useCardCommentChange = (comment: CommentType, card: CardType) => {
     const dispatch = useAppDispatch();
@@ -42,7 +42,7 @@ export const useCardCommentChange = (comment: CommentType, card: CardType) => {
         newComments[newComments.indexOf(comment)] = changedComment;
 
         dispatch(
-            editCard({
+            actions.card.editCard({
                 columnId: card.columnId,
                 cardId: card.id,
                 updates: { comments: newComments },
@@ -57,7 +57,7 @@ export const useCardCommentChange = (comment: CommentType, card: CardType) => {
         );
 
         dispatch(
-            editCard({
+            actions.card.editCard({
                 columnId: card.columnId,
                 cardId: card.id,
                 updates: { comments: newComments },

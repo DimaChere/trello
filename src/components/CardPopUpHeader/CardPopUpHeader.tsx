@@ -4,14 +4,12 @@ import SvgEdit from "../../icons/components/Edit";
 import { ImageButton } from "../Buttons/ImageButton";
 import "./CardPopUpHeader.style.sass";
 import { useAppDispatch, useAppSelector } from "../../app/store/store";
-import { removeCard } from "../../app/store/card/card-slice";
-import { selectUser } from "../../app/store/user/selectors";
-import { selectAllColumns } from "../../app/store/column/selectors";
-import { CardType } from "../../app/store/card/types";
+import { CardType } from "../../app/store/card";
+import { actions, selectors } from "../../app/store";
 
 export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
-    const user = useAppSelector(selectUser);
-    const columns = useAppSelector(selectAllColumns);
+    const user = useAppSelector(selectors.user.selectUser);
+    const columns = useAppSelector(selectors.column.selectAllColumns);
     const dispatch = useAppDispatch();
 
     const {
@@ -24,7 +22,12 @@ export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
     } = useCardNameChange(card);
 
     const handlePopUpDelete = () => {
-        dispatch(removeCard({ cardId: card.id, columnId: card.columnId }));
+        dispatch(
+            actions.card.removeCard({
+                cardId: card.id,
+                columnId: card.columnId,
+            })
+        );
     };
 
     const userName = user?.name;

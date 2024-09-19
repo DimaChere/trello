@@ -11,6 +11,7 @@ import { CardType } from "../../app/store/card/types";
 export const Card: React.FC<{ card: CardType }> = ({ card }) => {
     const [currentCardPopup, setCurrentCardPopup] =
         useState<CurrentCardPopupType | null>(null);
+
     const {
         isNameChanging,
         newTitle,

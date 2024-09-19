@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useAppDispatch, useAppSelector } from "../app/store/store";
-import { addComment } from "../app/store/card/card-slice";
-import { selectUser } from "../app/store/user/selectors";
-import { CardType } from "../app/store/card/types";
+import { CardType } from "../app/store/card";
+import { actions, selectors } from "../app/store";
 
 export const useCardSendComment = (card: CardType) => {
-    const user = useAppSelector(selectUser);
+    const user = useAppSelector(selectors.user.selectUser);
     const dispatch = useAppDispatch();
     const inputRef = useRef<HTMLTextAreaElement | null>(null);
     const [newComment, setNewComment] = useState("");
@@ -20,7 +19,7 @@ export const useCardSendComment = (card: CardType) => {
 
     const handleCommentSubmit = () => {
         dispatch(
-            addComment({
+            actions.comment.addComment({
                 cardId: card.id,
                 comment: {
                     id: uuidv4(),

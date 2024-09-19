@@ -3,11 +3,10 @@ import "./Column.style.sass";
 import { v4 as uuidv4 } from "uuid";
 import SvgAdd from "../../icons/components/Add";
 import { ImageButton } from "../Buttons/ImageButton";
-import { addCard } from "../../app/store/card/card-slice";
 import { useAppDispatch, useAppSelector } from "../../app/store/store";
 import { ColumnType } from "../../app/store/column/types";
 import { CardType } from "../../app/store/card/types";
-import { selectCardsFromColumnId } from "../../app/store/card/selectors";
+import { actions, selectors } from "../../app/store";
 
 export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
     const dispatch = useAppDispatch();
@@ -21,11 +20,11 @@ export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
             comments: [],
         };
 
-        dispatch(addCard({ columnId: column.id, card: newCard }));
+        dispatch(actions.card.addCard({ columnId: column.id, card: newCard }));
     };
 
     const cards = useAppSelector((state) =>
-        selectCardsFromColumnId(state, column.id)
+        selectors.card.selectCardsFromColumnId(state, column.id)
     );
 
     return (
