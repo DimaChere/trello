@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { CardType } from "../app/store/types";
 import { v4 as uuidv4 } from "uuid";
-import { useDispatch, useSelector } from "react-redux";
-import { addComment } from "../app/store/features/boardSlice";
-import { RootState } from "../app/store/store";
+import { useAppDispatch, useAppSelector } from "../app/store/store";
+import { CardType } from "../app/store/card";
+import { actions, selectors } from "../app/store";
 
 export const useCardSendComment = (card: CardType) => {
-    const user = useSelector((state: RootState) => state.board.user);
-    const dispatch = useDispatch();
+    const user = useAppSelector(selectors.user.selectUser);
+    const dispatch = useAppDispatch();
     const inputRef = useRef<HTMLTextAreaElement | null>(null);
     const [newComment, setNewComment] = useState("");
 
@@ -20,11 +19,11 @@ export const useCardSendComment = (card: CardType) => {
 
     const handleCommentSubmit = () => {
         dispatch(
-            addComment({
+            actions.comment.addComment({
                 cardId: card.id,
                 comment: {
                     id: uuidv4(),
-                    author: user || "anonymous",
+                    author: user?.name || "anonymous",
                     text: newComment.trim(),
                 },
             })

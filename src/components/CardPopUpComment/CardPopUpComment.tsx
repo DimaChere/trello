@@ -1,4 +1,4 @@
-import { CardType, CommentType } from "../../app/store/types";
+import { CardType, CommentType } from "../../app/store/card/types";
 import { useCardCommentChange } from "../../hooks/useCardCommentChange";
 import SvgDelete from "../../icons/components/Delete";
 import SvgDone from "../../icons/components/Done";

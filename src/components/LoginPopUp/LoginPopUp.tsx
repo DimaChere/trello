@@ -1,19 +1,18 @@
 import "./LoginPopUp.style.sass";
-import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../../app/store/features/boardSlice";
-import { RootState } from "../../app/store/store";
+import { useAppDispatch, useAppSelector } from "../../app/store/store";
+import { actions, selectors } from "../../app/store";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 interface LoginForm {
-    userName: string;
+    name: string;
 }
 
 export const LoginPopUp: React.FC = () => {
-    const dispatch = useDispatch();
-    const user = useSelector((state: RootState) => state.board.user);
+    const dispatch = useAppDispatch();
+    const user = useAppSelector(selectors.user.selectUser);
     const { register, handleSubmit } = useForm<LoginForm>();
     const onSubmit: SubmitHandler<LoginForm> = (data) =>
-        dispatch(addUser({ userName: data.userName }));
+        dispatch(actions.user.addUser({ name: data.name }));
 
     if (user) {
         return null;
@@ -24,7 +23,7 @@ export const LoginPopUp: React.FC = () => {
             <form onSubmit={handleSubmit(onSubmit)} className="pop-up">
                 <label className="pop-up__title">Пользователь:</label>
                 <input
-                    {...register("userName", {
+                    {...register("name", {
                         required: true,
                         maxLength: 20,
                     })}

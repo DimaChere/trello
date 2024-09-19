@@ -1,4 +1,4 @@
-import { CardType } from "../../app/store/types";
+import { CardType } from "../../app/store/card/types";
 import { useCardDescriptionChange } from "../../hooks/useCardDescriptionChange";
 import SvgAdd from "../../icons/components/Add";
 import SvgDelete from "../../icons/components/Delete";
@@ -29,11 +29,12 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
         <div className="card-description">
             <div className="card-description__content">
                 <p className="card-description__header">Описание</p>
-                <p className="card-description__description">
+                <div className="card-description__description">
                     {isDescriptionChanging && (
                         <>
                             <textarea
                                 className="card-description__textarea card-description__text"
+                                name="card-description"
                                 ref={inputRef}
                                 value={newDescription}
                                 onChange={(e) => {
@@ -56,7 +57,7 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
                             Описание отсутствует
                         </p>
                     )}
-                </p>
+                </div>
             </div>
             <div className="card-description__edit">
                 {isEmptyDescription && (

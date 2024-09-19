@@ -1,14 +1,15 @@
-import { CardType, ColumnType } from "../../app/store/types";
 import { Card } from "../Card/Card";
 import "./Column.style.sass";
 import { v4 as uuidv4 } from "uuid";
 import SvgAdd from "../../icons/components/Add";
 import { ImageButton } from "../Buttons/ImageButton";
-import { useDispatch } from "react-redux";
-import { addCard } from "../../app/store/features/boardSlice";
+import { useAppDispatch, useAppSelector } from "../../app/store/store";
+import { ColumnType } from "../../app/store/column/types";
+import { CardType } from "../../app/store/card/types";
+import { actions, selectors } from "../../app/store";
 
 export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const handleAddCard = () => {
         const newCard: CardType = {
@@ -19,8 +20,12 @@ export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
             comments: [],
         };
 
-        dispatch(addCard({ columnId: column.id, card: newCard }));
+        dispatch(actions.card.addCard({ columnId: column.id, card: newCard }));
     };
+
+    const cards = useAppSelector((state) =>
+        selectors.card.selectCardsFromColumnId(state, column.id)
+    );
 
     return (
         <div>
@@ -37,7 +42,7 @@ export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
                     />
                 </div>
                 <div className="column__cards">
-                    {column.cards.map((card) => (
+                    {cards.map((card) => (
                         <Card key={card.id} card={card} />
                     ))}
                 </div>

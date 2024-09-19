@@ -1,20 +1,16 @@
-import { CardType } from "../../app/store/types";
-import { useBoard } from "../../hooks/useBoard";
 import { useCardNameChange } from "../../hooks/useCardNameChange";
 import SvgDelete from "../../icons/components/Delete";
 import SvgEdit from "../../icons/components/Edit";
 import { ImageButton } from "../Buttons/ImageButton";
 import "./CardPopUpHeader.style.sass";
-import { useDispatch, useSelector } from "react-redux";
-import { removeCard } from "../../app/store/features/boardSlice";
-import { RootState } from "../../app/store/store";
+import { useAppDispatch, useAppSelector } from "../../app/store/store";
+import { CardType } from "../../app/store/card";
+import { actions, selectors } from "../../app/store";
 
 export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
-    const state = useSelector((state: RootState) => state.board);
-    const user = state.user;
-    const columns = state.columns;
-    const dispatch = useDispatch();
-    const { closeCardPopup } = useBoard();
+    const user = useAppSelector(selectors.user.selectUser);
+    const columns = useAppSelector(selectors.column.selectAllColumns);
+    const dispatch = useAppDispatch();
 
     const {
         isNameChanging,
@@ -26,11 +22,15 @@ export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
     } = useCardNameChange(card);
 
     const handlePopUpDelete = () => {
-        dispatch(removeCard({ cardId: card.id, columnId: card.columnId }));
-        closeCardPopup();
+        dispatch(
+            actions.card.removeCard({
+                cardId: card.id,
+                columnId: card.columnId,
+            })
+        );
     };
 
-    const userName = user;
+    const userName = user?.name;
     const columnTitle = columns.find((c) => c.id === card.columnId)?.title;
     const cardTitle = card.title;
 

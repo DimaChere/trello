@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { CardType } from "../app/store/types";
-import { useDispatch } from "react-redux";
-import { editCard } from "../app/store/features/boardSlice";
+import { useAppDispatch } from "../app/store/store";
+import { CardType } from "../app/store/card";
+import { actions } from "../app/store";
 
 export const useCardNameChange = (card: CardType) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [isNameChanging, setIsNameChanging] = useState(false);
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [newTitle, setNewTitle] = useState(card.title);
@@ -23,7 +23,7 @@ export const useCardNameChange = (card: CardType) => {
     const handleNameChange = (e: React.KeyboardEvent) => {
         if (e.key === "Enter") {
             dispatch(
-                editCard({
+                actions.card.editCard({
                     columnId: card.columnId,
                     cardId: card.id,
                     updates: { title: newTitle },
@@ -40,7 +40,7 @@ export const useCardNameChange = (card: CardType) => {
                 !inputRef.current.contains(e.target as Node)
             ) {
                 dispatch(
-                    editCard({
+                    actions.card.editCard({
                         columnId: card.columnId,
                         cardId: card.id,
                         updates: { title: newTitle },

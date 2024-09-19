@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { CardType } from "../app/store/types";
-import { useDispatch } from "react-redux";
-import { editCard } from "../app/store/features/boardSlice";
+import { useAppDispatch } from "../app/store/store";
+import { CardType } from "../app/store/card/types";
+import { actions } from "../app/store";
 
 export const useCardDescriptionChange = (card: CardType) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [isDescriptionChanging, setIsDescriptionChanging] = useState(false);
     const inputRef = useRef<HTMLTextAreaElement | null>(null);
     const [newDescription, setNewDescription] = useState(
@@ -36,7 +36,7 @@ export const useCardDescriptionChange = (card: CardType) => {
 
     const handleDescriptionSubmit = () => {
         dispatch(
-            editCard({
+            actions.card.editCard({
                 columnId: card.columnId,
                 cardId: card.id,
                 updates: { description: newDescription.trim() },
@@ -47,7 +47,7 @@ export const useCardDescriptionChange = (card: CardType) => {
 
     const handleDescriptionDelete = () => {
         dispatch(
-            editCard({
+            actions.card.editCard({
                 columnId: card.columnId,
                 cardId: card.id,
                 updates: { description: null },
