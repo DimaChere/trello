@@ -30,6 +30,7 @@ export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
     return (
         <div>
             <hgroup>
+                {/* TODO: сделать изменение тайтда */}
                 <h2 className="column-header__title">{column.title}</h2>
             </hgroup>
 

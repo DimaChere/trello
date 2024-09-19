@@ -5,6 +5,7 @@ import SvgDelete from "../../icons/components/Delete";
 import SvgDone from "../../icons/components/Done";
 import SvgEdit from "../../icons/components/Edit";
 import { ImageButton } from "../Buttons/ImageButton";
+import { useForm } from "react-hook-form";
 import "./CardPopUpDescription.style.sass";
 
 export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
@@ -12,13 +13,21 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
 }) => {
     const {
         isDescriptionChanging,
-        newDescription,
-        inputRef,
-        setNewDescription,
         handleOpenDescriptionEditor,
         handleDescriptionSubmit,
         handleDescriptionDelete,
     } = useCardDescriptionChange(card);
+
+    const { register, handleSubmit, reset } = useForm({
+        defaultValues: {
+            description: card.description || "",
+        },
+    });
+
+    const onSubmit = (data: { description: string }) => {
+        handleDescriptionSubmit(data.description);
+        reset({ description: data.description.trim() });
+    };
 
     const hasDescription = Boolean(card.description && !isDescriptionChanging);
     const isEmptyDescription = Boolean(
@@ -30,25 +39,19 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
             <div className="card-description__content">
                 <p className="card-description__header">Описание</p>
                 <div className="card-description__description">
-                    {isDescriptionChanging && (
-                        <>
+                    {isDescriptionChanging ? (
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <textarea
                                 className="card-description__textarea card-description__text"
-                                name="card-description"
-                                ref={inputRef}
-                                value={newDescription}
-                                onChange={(e) => {
-                                    setNewDescription(e.target.value);
-                                }}
+                                {...register("description")}
                             ></textarea>
                             <ImageButton
                                 icon={<SvgDone />}
                                 additionalStyles="button--apply-changes"
-                                onClickFunction={handleDescriptionSubmit}
+                                onClickFunction={handleSubmit(onSubmit)}
                             />
-                        </>
-                    )}
-                    {hasDescription ? (
+                        </form>
+                    ) : hasDescription ? (
                         <p className="card-description__text">
                             {card.description}
                         </p>
@@ -72,7 +75,6 @@ export const CardPopUpDescription: React.FC<{ card: CardType }> = ({
                             icon={<SvgEdit />}
                             onClickFunction={handleOpenDescriptionEditor}
                         />
-
                         <ImageButton
                             icon={<SvgDelete />}
                             onClickFunction={handleDescriptionDelete}
