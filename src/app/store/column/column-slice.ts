@@ -1,11 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ColumnType } from "./types";
-import { CardType } from "../card";
 
 type EditColumnPayload = {
     id: number;
-    title: string;
-    cards: CardType[];
     updates: Partial<ColumnType>;
 };
 
