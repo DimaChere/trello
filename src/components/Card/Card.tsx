@@ -35,7 +35,9 @@ export const Card: React.FC<{ card: CardType }> = ({ card }) => {
     };
 
     const handleCardPopUpOpen = () => {
-        setCurrentCardPopup({ id: card.id, columnId: card.columnId });
+        if (!isNameChanging) {
+            setCurrentCardPopup({ id: card.id, columnId: card.columnId });
+        }
     };
 
     const handleClosePopUp = () => {
