@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { CardType, CommentType } from "../../app/store/card/types";
 import { useCardCommentChange } from "../../hooks/useCardCommentChange";
 import SvgDelete from "../../icons/components/Delete";
@@ -6,7 +6,6 @@ import SvgDone from "../../icons/components/Done";
 import SvgEdit from "../../icons/components/Edit";
 import { ImageButton } from "../Buttons/ImageButton";
 import "./CardPopUpComment.style.sass";
-import { useEffect, useRef } from "react";
 import { SubmitImageButton } from "../Buttons/SubmitImageButton";
 
 interface CommentForm {
@@ -17,9 +16,9 @@ export const CardPopUpComment: React.FC<{
     comment: CommentType;
     card: CardType;
 }> = ({ comment, card }) => {
-    const { register, watch, handleSubmit } = useForm<CommentForm>();
-    const commentRef = useRef<HTMLTextAreaElement | null>(null);
-    const watchComment = watch(["comment"]);
+    const { control, handleSubmit } = useForm<CommentForm>({
+        defaultValues: { comment: comment.text },
+    });
     const {
         isCommentChanging,
         handleOpenCommentEditor,
@@ -31,13 +30,6 @@ export const CardPopUpComment: React.FC<{
         handleCommentSubmit(data.comment);
     };
 
-    useEffect(() => {
-        if (commentRef.current) {
-            commentRef.current.style.height = "auto";
-            commentRef.current.style.height = `${commentRef.current.scrollHeight}px`;
-        }
-    }, [watchComment]);
-
     return (
         <div className="comment">
             <div className="comment__text">
@@ -47,16 +39,27 @@ export const CardPopUpComment: React.FC<{
                         className="comment__form"
                         onSubmit={handleSubmit(onSubmit)}
                     >
-                        <textarea
-                            className="comment__textarea"
-                            {...register("comment", {
-                                required: true,
-                                value: comment.text,
-                            })}
-                            ref={(e) => {
-                                commentRef.current = e;
-                                register("comment").ref(e);
-                            }}
+                        <Controller
+                            name="comment"
+                            control={control}
+                            rules={{ required: true }}
+                            render={({
+                                field: { onBlur, value, onChange, ref },
+                            }) => (
+                                <textarea
+                                    className="comment__textarea"
+                                    onBlur={onBlur}
+                                    value={value}
+                                    onChange={onChange}
+                                    ref={(e) => {
+                                        ref(e);
+                                        if (e) {
+                                            e.style.height = "auto";
+                                            e.style.height = `${e.scrollHeight}px`;
+                                        }
+                                    }}
+                                />
+                            )}
                         />
 
                         <SubmitImageButton
