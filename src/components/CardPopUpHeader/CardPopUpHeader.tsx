@@ -33,7 +33,6 @@ export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
         dispatch(
             actions.card.removeCard({
                 cardId: card.id,
-                columnId: card.columnId,
             })
         );
     };

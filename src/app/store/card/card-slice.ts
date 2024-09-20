@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CardType, CommentType } from "./types";
 
 type AddCardPayload = { columnId: number; card: CardType };
-type RemoveCardPayload = { columnId: number; cardId: string };
+type RemoveCardPayload = { cardId: string };
 type EditCardPayload = {
     columnId: number;
     cardId: string;
@@ -23,7 +23,7 @@ const cardSlice = createSlice({
         removeCard: (state, action: PayloadAction<RemoveCardPayload>) => {
             const { cardId } = action.payload;
 
-            state = state.filter((card) => card.id !== cardId);
+            return state.filter((card) => card.id !== cardId);
         },
         editCard: (state, action: PayloadAction<EditCardPayload>) => {
             const { cardId, updates } = action.payload;
