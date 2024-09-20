@@ -27,7 +27,7 @@ export const actions = {
         removeCard: card.removeCard,
         editCard: card.editCard,
     },
-    column: {},
+    column: { editColumn: column.editColumn },
     comment: {
         addComment: card.addComment,
     },
