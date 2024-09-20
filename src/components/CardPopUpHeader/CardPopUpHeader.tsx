@@ -9,7 +9,7 @@ import { actions, selectors } from "../../app/store";
 
 export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
     const user = useAppSelector(selectors.user.selectUser);
-    const columns = useAppSelector(selectors.column.selectAllColumns);
+
     const dispatch = useAppDispatch();
 
     const {
@@ -31,7 +31,10 @@ export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
     };
 
     const userName = user?.name;
-    const columnTitle = columns.find((c) => c.id === card.columnId)?.title;
+    const column = useAppSelector((state) =>
+        selectors.column.selectColumnById(state, card.columnId)
+    );
+    const columnTitle = column?.title;
     const cardTitle = card.title;
 
     const breadcrumbs = `${userName} / ${columnTitle} / ${cardTitle}`;
