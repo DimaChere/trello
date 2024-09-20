@@ -1,20 +1,22 @@
-import { ColumnType } from "../../app/store/types";
-import { useBoard } from "../../hooks/useBoard";
-import { CardPopUp } from "../CardPopUp/CardPopUp";
 import { Column } from "../Column/Column";
 import "./Board.style.sass";
+import { useAppSelector } from "../../app/store/store";
+import { ColumnType } from "../../app/store/column/types";
+import { selectors } from "../../app/store";
 
 export const Board: React.FC = () => {
-    const { state, currentCardPopup } = useBoard();
+    const columns = useAppSelector(selectors.column.selectAllColumns);
+    if (!columns) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <>
             <div className="board">
-                {state.columns.map((column: ColumnType) => {
-                    return <Column key={column.id} column={column} />;
-                })}
+                {columns.map((column: ColumnType) => (
+                    <Column key={column.id} column={column} />
+                ))}
             </div>
-            {currentCardPopup && <CardPopUp cardInfo={currentCardPopup} />}
         </>
     );
 };

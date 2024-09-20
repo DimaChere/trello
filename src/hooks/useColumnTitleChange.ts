@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useAppDispatch } from "../app/store/store";
-import { CardType } from "../app/store/card";
 import { actions } from "../app/store";
+import { ColumnType } from "../app/store/column";
 
-export const useCardNameChange = (card: CardType) => {
+export const useColumnTitleChange = (column: ColumnType) => {
     const dispatch = useAppDispatch();
     const [isNameChanging, setIsNameChanging] = useState(false);
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -13,11 +13,10 @@ export const useCardNameChange = (card: CardType) => {
         setIsNameChanging((prev) => !prev);
     };
 
-    const handleTitleCardSubmit = (newTitle: string) => {
+    const handleTitleColumnSubmit = (newTitle: string) => {
         dispatch(
-            actions.card.editCard({
-                columnId: card.columnId,
-                cardId: card.id,
+            actions.column.editColumn({
+                id: column.id,
                 updates: { title: newTitle },
             })
         );
@@ -38,7 +37,7 @@ export const useCardNameChange = (card: CardType) => {
         isNameChanging,
         inputRef,
         handleOpenNameEditor,
-        handleTitleCardSubmit,
+        handleTitleCardSubmit: handleTitleColumnSubmit,
         changeEditVisibility,
     };
 };

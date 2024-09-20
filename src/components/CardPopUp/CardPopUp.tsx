@@ -1,39 +1,38 @@
-import { useEffect, useState } from "react";
-import {
-    CardType,
-    ColumnType,
-    CurrentCardPopupType,
-} from "../../app/store/types";
-import { useBoard } from "../../hooks/useBoard";
+import { CurrentCardPopupType } from "../../app/store/types";
 import { CardPopUpComments } from "../CardPopUpComments/CardPopUpComments";
 import { CardPopUpDescription } from "../CardPopUpDescription/CardPopUpDescription";
 import { CardPopUpHeader } from "../CardPopUpHeader/CardPopUpHeader";
 import "./CardPopUp.style.sass";
 import SvgClose from "../../icons/components/Close";
 import { ImageButton } from "../Buttons/ImageButton";
+import { useAppSelector } from "../../app/store/store";
+import { useEffect } from "react";
+import { selectors } from "../../app/store";
 
-export const CardPopUp: React.FC<{ cardInfo: CurrentCardPopupType }> = ({
-    cardInfo,
-}) => {
-    const { state, closeCardPopup } = useBoard();
-    const [currentCard, setCurrentCard] = useState<CardType>();
+export const CardPopUp: React.FC<{
+    cardInfo: CurrentCardPopupType;
+    handleClosePopUp: () => void;
+}> = ({ cardInfo, handleClosePopUp }) => {
+    const cardPopUp = useAppSelector((state) =>
+        selectors.card.selectCardById(state, cardInfo.id)
+    );
 
     useEffect(() => {
-        const column: ColumnType | undefined = state.columns.find(
-            (element) => element.id === cardInfo.columnId
-        );
-        const card: CardType | undefined = column?.cards?.find(
-            (card) => card.id === cardInfo.id
-        );
+        const keyDownAction = (e: KeyboardEvent) => {
+            if (e.key === "Escape") {
+                handleClosePopUp();
+            }
+        };
 
-        if (card) {
-            setCurrentCard(card);
-        }
-    }, [state.columns, cardInfo]);
+        document.addEventListener("keydown", keyDownAction);
+        return () => {
+            document.removeEventListener("keydown", keyDownAction);
+        };
+    }, [handleClosePopUp]);
 
-    const handleClosePopUp = () => {
-        closeCardPopup();
-    };
+    if (!cardPopUp) {
+        return null;
+    }
 
     return (
         <div className="card-pop-up-background">
@@ -43,11 +42,11 @@ export const CardPopUp: React.FC<{ cardInfo: CurrentCardPopupType }> = ({
                     additionalStyles="card-pop-up__close"
                     onClickFunction={handleClosePopUp}
                 />
-                {currentCard && (
+                {cardPopUp && (
                     <>
-                        <CardPopUpHeader card={currentCard} />
-                        <CardPopUpDescription card={currentCard} />
-                        <CardPopUpComments card={currentCard} />
+                        <CardPopUpHeader card={cardPopUp} />
+                        <CardPopUpDescription card={cardPopUp} />
+                        <CardPopUpComments card={cardPopUp} />
                     </>
                 )}
             </div>

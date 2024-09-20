@@ -1,7 +1,17 @@
-.column-header__title
-    font-size: 16px
-    font-weight: 400
-    color: #757575
+.column-header
+    display: flex
+    justify-content: space-between
+    &__form
+        display: flex
+        justify-content: space-between
+    &__input
+        font-size: 16px
+        font-weight: 400
+        color: #757575
+    &__title
+        font-size: 16px
+        font-weight: 400
+        color: #757575
  
 .column
     padding: 5px 9px
@@ -11,6 +21,7 @@
     &__controls
         display: flex
         justify-content: end
+    
     &__cards
         display: flex
         flex-direction: column

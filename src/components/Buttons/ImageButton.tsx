@@ -1,4 +1,4 @@
-import "./ImageButton.style.sass";
+import "./style.sass";
 
 type ImageButtonType = {
     icon: React.ReactNode;

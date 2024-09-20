@@ -1,34 +1,51 @@
-import { ACTION_TYPES, CardType } from "../../app/store/types";
-import { useBoard } from "../../hooks/useBoard";
 import { useCardNameChange } from "../../hooks/useCardNameChange";
 import SvgDelete from "../../icons/components/Delete";
 import SvgEdit from "../../icons/components/Edit";
 import { ImageButton } from "../Buttons/ImageButton";
 import "./CardPopUpHeader.style.sass";
+import { useAppDispatch, useAppSelector } from "../../app/store/store";
+import { CardType } from "../../app/store/card";
+import { actions, selectors } from "../../app/store";
+import { Controller, useForm } from "react-hook-form";
+import { SubmitImageButton } from "../Buttons/SubmitImageButton";
+import SvgDone from "../../icons/components/Done";
+
+interface HeaderForm {
+    title: string;
+}
 
 export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
-    const { state, dispatch, closeCardPopup } = useBoard();
+    const user = useAppSelector(selectors.user.selectUser);
+    const { control, handleSubmit } = useForm<HeaderForm>({
+        defaultValues: { title: card.title },
+    });
+
+    const dispatch = useAppDispatch();
+
     const {
         isNameChanging,
-        newTitle,
         inputRef,
-        setNewTitle,
         handleOpenNameEditor,
-        handleNameChange,
+        handleTitleCardSubmit,
     } = useCardNameChange(card);
 
     const handlePopUpDelete = () => {
-        dispatch({
-            type: ACTION_TYPES.REMOVE_CARD,
-            payload: { cardId: card.id, columnId: card.columnId },
-        });
-        closeCardPopup();
+        dispatch(
+            actions.card.removeCard({
+                cardId: card.id,
+            })
+        );
     };
 
-    const userName = state.user;
-    const columnTitle = state.columns.find(
-        (c) => c.id === card.columnId
-    )?.title;
+    const onSubmit = (data: HeaderForm) => {
+        handleTitleCardSubmit(data.title);
+    };
+
+    const userName = user?.name;
+    const column = useAppSelector((state) =>
+        selectors.column.selectColumnById(state, card.columnId)
+    );
+    const columnTitle = column?.title;
     const cardTitle = card.title;
 
     const breadcrumbs = `${userName} / ${columnTitle} / ${cardTitle}`;
@@ -36,17 +53,33 @@ export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
     return (
         <div className="pop-up-header">
             {isNameChanging ? (
-                <>
-                    <input
-                        type="text"
-                        name="card-name"
-                        className="pop-up-header__title"
-                        value={newTitle}
-                        onChange={(e) => setNewTitle(e.target.value)}
-                        onKeyDown={handleNameChange}
-                        ref={inputRef}
+                <form
+                    className="pop-up-header__form"
+                    onSubmit={handleSubmit(onSubmit)}
+                >
+                    <Controller
+                        name="title"
+                        control={control}
+                        rules={{ maxLength: 20 }}
+                        render={({ field }) => (
+                            <input
+                                className="pop-up-header__input"
+                                type="text"
+                                {...field}
+                                ref={(e) => {
+                                    field.ref(e);
+                                    if (e) {
+                                        inputRef.current = e;
+                                    }
+                                }}
+                            />
+                        )}
                     />
-                </>
+                    <SubmitImageButton
+                        icon={<SvgDone />}
+                        additionalStyles="button--apply-changes"
+                    />
+                </form>
             ) : (
                 <div>
                     <p className="pop-up-header__title">{card.title}</p>

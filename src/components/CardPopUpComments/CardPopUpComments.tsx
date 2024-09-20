@@ -1,13 +1,26 @@
-import { CardType } from "../../app/store/types";
+import { Controller, useForm } from "react-hook-form";
+import { CardType } from "../../app/store/card/types";
 import { useCardSendComment } from "../../hooks/useCardSendComment";
 import SvgSend from "../../icons/components/Send";
-import { ImageButton } from "../Buttons/ImageButton";
 import { CardPopUpComment } from "../CardPopUpComment/CardPopUpComment";
 import "./CardPopUpComments.style.sass";
+import { SubmitImageButton } from "../Buttons/SubmitImageButton";
+
+interface CommentForm {
+    comment: string;
+}
 
 export const CardPopUpComments: React.FC<{ card: CardType }> = ({ card }) => {
-    const { inputRef, setNewComment, handleCommentSubmit } =
-        useCardSendComment(card);
+    const { handleCommentSubmit } = useCardSendComment(card);
+
+    const { control, handleSubmit, reset } = useForm<CommentForm>({
+        defaultValues: { comment: "" },
+    });
+
+    const onSubmit = (data: CommentForm) => {
+        handleCommentSubmit(data.comment);
+        reset();
+    };
 
     const hasComments = card.comments.length > 0;
 
@@ -16,20 +29,37 @@ export const CardPopUpComments: React.FC<{ card: CardType }> = ({ card }) => {
     return (
         <div className="card-comments">
             <p className="card__comments-description">{commentsDescription}</p>
-            <div className="card-comments__send-comment">
-                <textarea
-                    className="card-comments__textarea"
-                    ref={inputRef}
-                    onChange={(e) => setNewComment(e.target.value)}
+            <form
+                className="card-comments__send-comment"
+                onSubmit={handleSubmit(onSubmit)}
+            >
+                <Controller
+                    name="comment"
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { onBlur, value, onChange, ref } }) => (
+                        <textarea
+                            className="card-comments__textarea"
+                            onBlur={onBlur}
+                            value={value}
+                            onChange={onChange}
+                            ref={(e) => {
+                                ref(e);
+                                if (e) {
+                                    e.style.height = "auto";
+                                    e.style.height = `${e.scrollHeight}px`;
+                                }
+                            }}
+                        />
+                    )}
                 />
                 <div>
-                    <ImageButton
+                    <SubmitImageButton
                         icon={<SvgSend />}
                         additionalStyles="card-comments__send-button"
-                        onClickFunction={handleCommentSubmit}
                     />
                 </div>
-            </div>
+            </form>
             <div className="card-comments__comments-block">
                 {hasComments &&
                     card.comments.map((comment) => (
