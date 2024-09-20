@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppDispatch } from "../app/store/store";
 import { CardType } from "../app/store/card";
 import { actions } from "../app/store";
@@ -7,10 +7,24 @@ export const useCardNameChange = (card: CardType) => {
     const dispatch = useAppDispatch();
     const [isNameChanging, setIsNameChanging] = useState(false);
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const [newTitle, setNewTitle] = useState(card.title);
 
     const handleOpenNameEditor = (e: React.MouseEvent) => {
         e.stopPropagation();
+        setIsNameChanging((prev) => !prev);
+    };
+
+    const handleTitleCardSubmit = (newTitle: string) => {
+        dispatch(
+            actions.card.editCard({
+                columnId: card.columnId,
+                cardId: card.id,
+                updates: { title: newTitle },
+            })
+        );
+        changeEditVisibility();
+    };
+
+    const changeEditVisibility = () => {
         setIsNameChanging((prev) => !prev);
     };
 
@@ -20,56 +34,11 @@ export const useCardNameChange = (card: CardType) => {
         }
     }, [isNameChanging]);
 
-    const handleNameChange = (e: React.KeyboardEvent) => {
-        if (e.key === "Enter") {
-            dispatch(
-                actions.card.editCard({
-                    columnId: card.columnId,
-                    cardId: card.id,
-                    updates: { title: newTitle },
-                })
-            );
-            setIsNameChanging(false);
-        }
-    };
-
-    const handleOutsideClick = useCallback(
-        (e: MouseEvent) => {
-            if (
-                inputRef.current &&
-                !inputRef.current.contains(e.target as Node)
-            ) {
-                dispatch(
-                    actions.card.editCard({
-                        columnId: card.columnId,
-                        cardId: card.id,
-                        updates: { title: newTitle },
-                    })
-                );
-                setIsNameChanging(false);
-            }
-        },
-        [card.columnId, card.id, dispatch, newTitle]
-    );
-
-    useEffect(() => {
-        if (isNameChanging) {
-            document.addEventListener("mousedown", handleOutsideClick);
-        } else {
-            document.removeEventListener("mousedown", handleOutsideClick);
-        }
-
-        return () => {
-            document.removeEventListener("mousedown", handleOutsideClick);
-        };
-    }, [isNameChanging, handleOutsideClick]);
-
     return {
         isNameChanging,
-        newTitle,
         inputRef,
-        setNewTitle,
         handleOpenNameEditor,
-        handleNameChange,
+        handleTitleCardSubmit,
+        changeEditVisibility,
     };
 };

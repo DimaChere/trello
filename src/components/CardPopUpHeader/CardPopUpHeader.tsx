@@ -6,19 +6,27 @@ import "./CardPopUpHeader.style.sass";
 import { useAppDispatch, useAppSelector } from "../../app/store/store";
 import { CardType } from "../../app/store/card";
 import { actions, selectors } from "../../app/store";
+import { Controller, useForm } from "react-hook-form";
+import { SubmitImageButton } from "../Buttons/SubmitImageButton";
+import SvgDone from "../../icons/components/Done";
+
+interface HeaderForm {
+    title: string;
+}
 
 export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
     const user = useAppSelector(selectors.user.selectUser);
+    const { control, handleSubmit } = useForm<HeaderForm>({
+        defaultValues: { title: card.title },
+    });
 
     const dispatch = useAppDispatch();
 
     const {
         isNameChanging,
-        newTitle,
         inputRef,
-        setNewTitle,
         handleOpenNameEditor,
-        handleNameChange,
+        handleTitleCardSubmit,
     } = useCardNameChange(card);
 
     const handlePopUpDelete = () => {
@@ -28,6 +36,10 @@ export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
                 columnId: card.columnId,
             })
         );
+    };
+
+    const onSubmit = (data: HeaderForm) => {
+        handleTitleCardSubmit(data.title);
     };
 
     const userName = user?.name;
@@ -42,17 +54,33 @@ export const CardPopUpHeader: React.FC<{ card: CardType }> = ({ card }) => {
     return (
         <div className="pop-up-header">
             {isNameChanging ? (
-                <>
-                    <input
-                        type="text"
-                        name="card-name"
-                        className="pop-up-header__title"
-                        value={newTitle}
-                        onChange={(e) => setNewTitle(e.target.value)}
-                        onKeyDown={handleNameChange}
-                        ref={inputRef}
+                <form
+                    className="pop-up-header__form"
+                    onSubmit={handleSubmit(onSubmit)}
+                >
+                    <Controller
+                        name="title"
+                        control={control}
+                        rules={{ maxLength: 20 }}
+                        render={({ field }) => (
+                            <input
+                                className="pop-up-header__input"
+                                type="text"
+                                {...field}
+                                ref={(e) => {
+                                    field.ref(e);
+                                    if (e) {
+                                        inputRef.current = e;
+                                    }
+                                }}
+                            />
+                        )}
                     />
-                </>
+                    <SubmitImageButton
+                        icon={<SvgDone />}
+                        additionalStyles="button--apply-changes"
+                    />
+                </form>
             ) : (
                 <div>
                     <p className="pop-up-header__title">{card.title}</p>
