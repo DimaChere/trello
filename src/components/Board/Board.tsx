@@ -3,7 +3,9 @@ import {
     DndContext,
     DragEndEvent,
     KeyboardSensor,
+    MouseSensor,
     PointerSensor,
+    TouchSensor,
     useSensor,
     useSensors,
 } from "@dnd-kit/core";
@@ -23,6 +25,17 @@ export const Board: React.FC = () => {
             coordinateGetter: sortableKeyboardCoordinates,
         })
     );
+
+    const mouseSensor = useSensor(MouseSensor, {
+        activationConstraint: {
+            distance: 5,
+        },
+    });
+    const touchSensor = useSensor(TouchSensor, {
+        activationConstraint: {
+            distance: 5,
+        },
+    });
 
     if (!columns) {
         return <div>Loading...</div>;
@@ -51,7 +64,7 @@ export const Board: React.FC = () => {
         <>
             <div className="board">
                 <DndContext
-                    sensors={sensors}
+                    sensors={[mouseSensor, touchSensor]}
                     collisionDetection={closestCenter}
                     onDragEnd={handleDragEnd}
                 >
