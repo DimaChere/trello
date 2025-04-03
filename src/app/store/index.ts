@@ -24,6 +24,7 @@ export const selectors = {
 export const actions = {
     card: {
         addCard: card.addCard,
+        moveCard: card.moveCard,
         removeCard: card.removeCard,
         editCard: card.editCard,
     },

@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CardType, CommentType } from "./types";
 
 type AddCardPayload = { columnId: number; card: CardType };
+type MoveCardPayload = { cardId: string; columnId: number };
 type RemoveCardPayload = { cardId: string };
 type EditCardPayload = {
     columnId: number;
@@ -19,6 +20,14 @@ const cardSlice = createSlice({
             const { card } = action.payload;
 
             state.push(card);
+        },
+        moveCard: (state, action: PayloadAction<MoveCardPayload>) => {
+            const { cardId, columnId } = action.payload;
+
+            const card = state.find((card) => card.id === cardId);
+            if (card) {
+                card.columnId = columnId;
+            }
         },
         removeCard: (state, action: PayloadAction<RemoveCardPayload>) => {
             const { cardId } = action.payload;
@@ -44,6 +53,7 @@ const cardSlice = createSlice({
     },
 });
 
-export const { addCard, removeCard, editCard, addComment } = cardSlice.actions;
+export const { addCard, moveCard, removeCard, editCard, addComment } =
+    cardSlice.actions;
 
 export default cardSlice.reducer;

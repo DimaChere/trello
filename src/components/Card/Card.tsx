@@ -1,23 +1,36 @@
+import { useDraggable } from "@dnd-kit/core";
 import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { CardType } from "../../app/store/card/types";
 import { CurrentCardPopupType } from "../../app/store/types";
 import { useCardNameChange } from "../../hooks/useCardNameChange";
 import SvgChat from "../../icons/components/Chat";
+import SvgDone from "../../icons/components/Done";
 import SvgEdit from "../../icons/components/Edit";
 import { ImageButton } from "../Buttons/ImageButton";
-import "./Card.style.sass";
-import { CardPopUp } from "../CardPopUp/CardPopUp";
-import { CardType } from "../../app/store/card/types";
-import { Controller, useForm } from "react-hook-form";
 import { SubmitImageButton } from "../Buttons/SubmitImageButton";
-import SvgDone from "../../icons/components/Done";
-
+import { CardPopUp } from "../CardPopUp/CardPopUp";
+import "./Card.style.sass";
 interface CardForm {
     title: string;
 }
 
-export const Card: React.FC<{ card: CardType }> = ({ card }) => {
+type CardProps = {
+    card: CardType;
+    columnId: number;
+};
+
+export const Card: React.FC<CardProps> = ({ card, columnId }) => {
     const [currentCardPopup, setCurrentCardPopup] =
         useState<CurrentCardPopupType | null>(null);
+
+    const { attributes, listeners, setNodeRef, transform } = useDraggable({
+        id: card.id,
+        data: {
+            columnId,
+            type: "card",
+        },
+    });
 
     const {
         isNameChanging,
@@ -48,7 +61,18 @@ export const Card: React.FC<{ card: CardType }> = ({ card }) => {
 
     return (
         <>
-            <div className="card" onClick={handleCardPopUpOpen}>
+            <div
+                ref={setNodeRef}
+                {...listeners}
+                {...attributes}
+                style={{
+                    transform: transform
+                        ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+                        : undefined,
+                }}
+                className="card"
+                onClick={handleCardPopUpOpen}
+            >
                 <div className="card__header">
                     {isNameChanging ? (
                         <form onSubmit={handleSubmit(onSubmit)}>

@@ -1,25 +1,35 @@
-import { Card } from "../Card/Card";
-import "./Column.style.sass";
-import { v4 as uuidv4 } from "uuid";
-import SvgAdd from "../../icons/components/Add";
-import { ImageButton } from "../Buttons/ImageButton";
-import { useAppDispatch, useAppSelector } from "../../app/store/store";
-import { ColumnType } from "../../app/store/column/types";
-import { CardType } from "../../app/store/card/types";
-import { actions, selectors } from "../../app/store";
+import { useDroppable } from "@dnd-kit/core";
 import { Controller, useForm } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
+import { actions, selectors } from "../../app/store";
+import { CardType } from "../../app/store/card/types";
+import { ColumnType } from "../../app/store/column/types";
+import { useAppDispatch, useAppSelector } from "../../app/store/store";
 import { useColumnTitleChange } from "../../hooks/useColumnTitleChange";
-import { SubmitImageButton } from "../Buttons/SubmitImageButton";
+import SvgAdd from "../../icons/components/Add";
 import SvgDone from "../../icons/components/Done";
 import SvgEdit from "../../icons/components/Edit";
+import { ImageButton } from "../Buttons/ImageButton";
+import { SubmitImageButton } from "../Buttons/SubmitImageButton";
+import { Card } from "../Card/Card";
+import "./Column.style.sass";
 
 interface ColumnForm {
     title: string;
 }
+
 export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
     const dispatch = useAppDispatch();
     const { control, handleSubmit } = useForm<ColumnForm>({
         defaultValues: { title: column.title },
+    });
+
+    const { setNodeRef: setDropNodeRef } = useDroppable({
+        id: column.id,
+        data: {
+            columnId: column.id,
+            accepts: ["card"],
+        },
     });
 
     const {
@@ -50,7 +60,7 @@ export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
     );
 
     return (
-        <div>
+        <div ref={setDropNodeRef}>
             <hgroup className="column-header">
                 {isNameChanging ? (
                     <form
@@ -101,7 +111,7 @@ export const Column: React.FC<{ column: ColumnType }> = ({ column }) => {
                 </div>
                 <div className="column__cards">
                     {cards.map((card) => (
-                        <Card key={card.id} card={card} />
+                        <Card key={card.id} card={card} columnId={column.id} />
                     ))}
                 </div>
             </div>
